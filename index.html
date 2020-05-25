@@ -1,0 +1,2702 @@
+<html>
+  <head>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        user-select: none;
+      }
+      body {
+        overflow: hidden;
+      }
+      .hidden {
+        display: none !important;
+      }
+      #fightStage {
+        background-color: rgb(81, 131, 58);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+      }
+      #timeline {
+        flex: 1;
+        width: 100vw;
+        background-color: gray;
+        position: relative;
+        display: flex;
+        border-bottom: black solid 3px;
+      }
+      .timelineAction {
+        width: 4%;
+        height: 100%;
+        position: absolute;
+        border-left: black solid 1px;
+        border-right: black solid 1px;
+      }
+      .transition {
+        transition: all 0.12s linear;
+      }
+      #timelineTurn {
+        width: 1%;
+        height: 100%;
+        z-index: 1;
+        opacity: 50%;
+        position: absolute;
+        background-color: rgb(212, 212, 212);
+        transform: translateX(75vw);
+      }
+      #battleField {
+        flex: 10;
+        display: flex;
+      }
+      .battleFieldPart {
+        flex: 3;
+      }
+      #bottomBar {
+        flex: 1.5;
+        display: flex;
+        justify-content: space-between;
+      }
+      .bottomBarPart {
+        display: flex;
+        width: 30%;
+        flex-direction: column;
+        border-top: black solid 3px;
+      }
+      .bottomBarPartUpper {
+        overflow: hidden;
+        flex: 2;
+        background-color: coral;
+        font-size: 3vw;
+      }
+      .bottomBarPartBottom {
+        font-size: 1.5vw;
+        background-color: gray;
+        flex: 1;
+        display: flex;
+        border-top: black solid 3px;
+      }
+      .bottomBarPartBottomLeft {
+        flex: 1;
+      }
+      .bottomBarPartBottomRight {
+        flex: 1;
+        border-left: black solid 3px;
+      }
+
+      #startField {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: darkgray;
+        z-index: 100;
+      }
+      #startStage {
+        position: absolute;
+        left: 1%;
+      }
+      #nameField {
+        height: 5vh;
+        width: 35vh;
+        font-size: 4vh;
+      }
+      .attribute {
+        font-size: 3vh;
+        padding: 1vh;
+        display: flex;
+        text-align: right;
+      }
+      .buttonPlus {
+        border-radius: 50%;
+        border: black solid 2px;
+        width: 3vh;
+        height: 3vh;
+        text-align: center;
+        font-size: 2.5vh;
+        margin-left: 1vh;
+        margin-right: 1vh;
+        position: absolute;
+        left: 35vh;
+        background-color: rgb(30, 128, 30);
+      }
+      .buttonPlus:hover {
+        background-color: rgb(17, 158, 17);
+        cursor: pointer;
+      }
+      .buttonMinus {
+        border-radius: 50%;
+        border: black solid 2px;
+        width: 3vh;
+        height: 3vh;
+        text-align: center;
+        font-size: 2.5vh;
+        margin-left: 1vh;
+        margin-right: 1vh;
+        position: absolute;
+        left: 25vh;
+        background-color: rgb(138, 27, 27);
+      }
+      .buttonMinus:hover {
+        background-color: rgb(173, 21, 21);
+        cursor: pointer;
+      }
+      .attributeValue {
+        position: absolute;
+        left: 31vh;
+      }
+      #poolPoints {
+        position: absolute;
+        left: 26vh;
+        display: flex;
+        font-size: 3vh;
+      }
+      #poolPointsValue {
+        position: relative;
+        left: 1vh;
+        font-size: 4vh;
+        top: -1vh;
+      }
+      #startAcceptButton {
+        margin: 5vh;
+        border: black solid 2px;
+        height: 5vh;
+        font-size: 4vh;
+        text-align: center;
+        background-color: rgb(181, 184, 40);
+      }
+      #startAcceptButton:hover {
+        background-color: rgb(214, 218, 25);
+        cursor: pointer;
+      }
+      #playerStats {
+        position: absolute;
+        left: 3vw;
+        bottom: 20vh;
+        background-color: rgb(175, 175, 175);
+        border: black solid 2px;
+        z-index: 1;
+        width: 25vw;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .playerStat {
+        position: relative;
+        margin-left: 1vw;
+        flex: 1;
+        font-size: 4vh;
+        display: flex;
+      }
+      .playerStatValue {
+        position: relative;
+        left: 0.5vw;
+      }
+      #fightMessagesSpace {
+        flex: 2;
+      }
+      #fightMessage {
+        position: absolute;
+        text-align: center;
+        top: 20%;
+        font-size: 2vw;
+        transform: translateX(-50%);
+      }
+      #fightSkillsArea {
+        overflow: hidden;
+        position: absolute;
+        width: 20vw;
+        height: 60vh;
+        left: 31vw;
+        background-color: rosybrown;
+        border: black solid 2px;
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: column;
+      }
+      .fightSkill {
+        flex: 1;
+        border-bottom: black solid 2px;
+      }
+      .fightSkillTitle {
+        text-align: center;
+        font-size: 1.2vw;
+        font-weight: bold;
+      }
+      .fightSkillDescription {
+        text-align: center;
+        font-size: 1vw;
+        font-style: italic;
+      }
+      .fightSkillStat {
+        position: relative;
+        margin-top: 1vh;
+        font-size: 1vw;
+        left: 3vw;
+      }
+      #mapTable {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(168, 121, 73);
+      }
+      #mapMap {
+        position: relative;
+        width: 40%;
+        height: 80%;
+        background-color: rgb(193, 154, 107);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: black solid 2px;
+        display: flex;
+        flex-direction: column;
+      }
+      .mapRow {
+        flex: 1;
+        display: flex;
+      }
+      .mapField {
+        flex: 1;
+        border-radius: 50%;
+        width: 80%;
+        height: 80%;
+        transform: translateY(10%);
+        font-size: 7vh;
+        text-align: center;
+        /* border: black solid 2px; */
+      }
+      .mapRoadsImg {
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        position: absolute;
+      }
+      .mapFieldAway {
+        background-color: rgb(196, 0, 0);
+        border: black solid 2px;
+      }
+      .mapFieldNow {
+        background-color: rgb(0, 70, 0);
+        z-index: 100;
+        border: black solid 2px;
+      }
+      .mapFieldAvailable {
+        background-color: green;
+        border: black solid 2px;
+      }
+      .mapFieldAvailable:hover {
+        background-color: rgb(0, 161, 0);
+        cursor: pointer;
+      }
+      .mapFieldPast {
+        background-color: rgb(62, 77, 62);
+        border: black solid 2px;
+      }
+      .mapBattleIcon {
+        width: 95%;
+        height: 95%;
+        transform: translate(-1%, 5%);
+      }
+      .enemyImage {
+        width: 40%;
+        height: 60%;
+        transform: translate(100%, 50%);
+      }
+      .enemyNoImage {
+        width: 20%;
+        height: 30%;
+        background-color: red;
+        border: black solid 2px;
+        position: relative;
+        left: 40%;
+        top: 40%;
+      }
+      #shopBackground {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(192, 91, 79);
+      }
+      #shopTop {
+        flex: 1;
+        width: 100vw;
+        background-color: rgb(123, 81, 163);
+        text-align: center;
+        font-size: 5vw;
+        border-bottom: black solid 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #shopMain {
+        flex: 6;
+        display: flex;
+      }
+      .shopMainWaste {
+        flex: 1;
+      }
+      #shopMainCenter {
+        flex: 8;
+        display: flex;
+        flex-direction: column;
+      }
+      .shopMainCenterWaste {
+        flex: 1;
+        display: flex;
+        font-size: 2vw;
+        text-align: center;
+      }
+      #shopItems {
+        flex: 20;
+        background-color: salmon;
+        display: flex;
+        flex-direction: column;
+      }
+      .shopItem {
+        flex: 1;
+        border: black solid 2px;
+        border-bottom: 0;
+        display: flex;
+        text-align: center;
+        font-size: 3vw;
+      }
+      .shopItemNameContainer {
+        flex: 4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .shopItemPriceContainer {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .shopItemDescriptionContainer {
+        flex: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #shopInfoName {
+        align-self: flex-end;
+        flex: 4;
+      }
+      #shopInfoPrice {
+        align-self: flex-end;
+        flex: 1;
+      }
+      #shopInfoDescription {
+        align-self: flex-end;
+        flex: 5;
+      }
+      .shopItemStats {
+        position: absolute;
+        left: 80%;
+        width: 14vw;
+        margin-left: 1vw;
+        background-color: gray;
+        border: black solid 2px;
+        border-radius: 10%;
+        overflow: hidden;
+        z-index: 2;
+      }
+      #shopPlayer {
+        flex: 5;
+        background-color: salmon;
+        border-bottom: black solid 2px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      #shopPlayerWaste {
+        flex: 1;
+      }
+      #shopPlayerName {
+        font-size: 2vw;
+        flex: 1.5;
+        text-align: center;
+      }
+      #shopPlayerStats {
+        flex: 16;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2vw;
+      }
+      .shopPlayerStat {
+        flex: 1;
+      }
+      .shopPlayerStatValue {
+        flex: 1;
+      }
+      .shopPlayerStatContainer {
+        flex: 1;
+        border-bottom: black solid 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      #shopSkillsObtainedArea {
+        overflow: hidden;
+        position: absolute;
+        width: 20vw;
+        height: 60vh;
+        left: 55vw;
+        top: 20vh;
+        background-color: rosybrown;
+        border: black solid 2px;
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: column;
+      }
+      .shopSkillObtained {
+        flex: 1;
+        border-bottom: black solid 2px;
+      }
+      .shopSkillObtainedTitle {
+        text-align: center;
+        font-size: 1.2vw;
+        font-weight: bold;
+      }
+      .shopSkillObtainedDescription {
+        text-align: center;
+        font-size: 1vw;
+        font-style: italic;
+      }
+      .shopSkillObtainedStat {
+        position: relative;
+        margin-top: 1vh;
+        font-size: 1vw;
+        left: 3vw;
+      }
+      #shopSkillObtainedCancel {
+        position: absolute;
+        background-color: rgb(194, 65, 65);
+        font-size: 1.5vw;
+        left: 10vw;
+        top: 92%;
+        width: 10vw;
+        height: 5%;
+        text-align: center;
+        border: black solid 2px;
+        overflow: hidden;
+      }
+      #shopSkillObtainedCancel:hover {
+        background-color: rgb(148, 32, 32);
+        cursor: pointer;
+      }
+
+      #shopSkillObtainedBackground {
+        font-size: 1.5vw;
+        text-align: center;
+        width: 30vw;
+        height: 70vh;
+        position: absolute;
+        left: 50vw;
+        top: 15vh;
+        background-color: thistle;
+        border: black solid 3px;
+      }
+      #shopLeave {
+        position: relative;
+        left: 70%;
+        top: 50%;
+        width: 30%;
+        height: 50%;
+        background-color: rgb(138, 38, 38);
+        border: black solid 2px;
+      }
+      #shopLeave:hover {
+        cursor: pointer;
+        background-color: rgb(168, 30, 30);
+        z-index: 5;
+      }
+    </style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+  <body>
+    <div id="startField" class="">
+      <div id="startStage">
+        <div style="font-size: 7vh;">Stwórz postać</div>
+        <div style="font-size: 3vh;">Imię:</div>
+        <input value="Czesław" id="nameField" maxlength="15" />
+
+        <div style="padding-top: 3vh; font-size: 5vh;">Atrybuty:</div>
+        <div class="attribute">
+          Wytrzymałość
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Siła
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Wiedza
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Inteligencja
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Zwinność
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Refleks
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Precyzyjność
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div class="attribute">
+          Szczęście
+          <div class="buttonMinus">-</div>
+          <div class="attributeValue">10</div>
+          <div class="buttonPlus">+</div>
+        </div>
+        <div id="poolPoints">
+          Pula:
+          <div id="poolPointsValue">95</div>
+        </div>
+        <div id="startAcceptButton">Zatwierdź</div>
+      </div>
+    </div>
+    <div id="fightStage" class="hidden">
+      <div id="timeline">
+        <div
+          class="timelineAction transition"
+          style="background-color: red; transform: translateX(10vw);"
+        ></div>
+        <div
+          class="timelineAction transition"
+          style="background-color: blue;"
+        ></div>
+        <div id="timelineTurn"></div>
+      </div>
+      <div id="battleField">
+        <div class="battleFieldPart">
+          <div
+            id="player"
+            style="
+              width: 20%;
+              height: 30%;
+              background-color: blue;
+              border: black solid 2px;
+              position: relative;
+              left: 40%;
+              top: 40%;
+            "
+          ></div>
+          <div id="fightSkillsArea" class="hidden">
+            <div
+              class="fightSkill"
+              style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;"
+            >
+              <div class="fightSkillTitle"></div>
+              <div class="fightSkillDescription"></div>
+              <div class="fightSkillStat"></div>
+            </div>
+            <div class="fightSkill">
+              <div class="fightSkillTitle"></div>
+              <div class="fightSkillDescription"></div>
+              <div class="fightSkillStat"></div>
+            </div>
+            <div class="fightSkill">
+              <div class="fightSkillTitle"></div>
+              <div class="fightSkillDescription"></div>
+              <div class="fightSkillStat"></div>
+            </div>
+            <div
+              class="fightSkill"
+              style="
+                border: none;
+                border-bottom-left-radius: 1vw;
+                border-bottom-right-radius: 1vw;
+              "
+            >
+              <div class="fightSkillTitle"></div>
+              <div class="fightSkillDescription"></div>
+              <div class="fightSkillStat"></div>
+            </div>
+          </div>
+        </div>
+        <div id="fightMessagesSpaces">
+          <div id="fightMessage"></div>
+        </div>
+        <div class="battleFieldPart">
+          <div id="enemy" class="enemyNoImage"></div>
+        </div>
+      </div>
+      <div id="bottomBar">
+        <div class="bottomBarPart" style="border-right: black solid 3px;">
+          <div
+            id="playerName"
+            class="bottomBarPartUpper"
+            style="text-align: right; padding-right: 1vw;"
+          >
+            Czesław
+          </div>
+          <div id="playerStats" class="hidden">
+            <div class="playerStat">
+              Punkty życia:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Punkty many:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Siła:
+              <div class="playerStatValue">100</div>
+            </div>
+
+            <div class="playerStat">
+              Moc magiczna:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Szybkość:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Szansa na unik:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Celność:
+              <div class="playerStatValue">100</div>
+            </div>
+            <div class="playerStat">
+              Szczęście:
+              <div class="playerStatValue">100</div>
+            </div>
+          </div>
+          <div style="text-align: end;" class="bottomBarPartBottom">
+            <div class="bottomBarPartBottomLeft">
+              <div
+                class="container"
+                style="position: absolute; width: 15vw; height: 4vh;"
+              ></div>
+              <div
+                id="playerMP"
+                style="
+                  background-color: cornflowerblue;
+                  width: 100%;
+                  height: 100%;
+                  box-sizing: border-box;
+                "
+              >
+                &nbsp
+              </div>
+            </div>
+            <div class="bottomBarPartBottomRight">
+              <div
+                class="container"
+                style="
+                  position: absolute;
+                  left: 15vw;
+                  width: 15vw;
+                  height: 4vh;
+                "
+              ></div>
+              <div
+                id="playerHP"
+                style="background-color: crimson; width: 100%; height: 100%;"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="bottomBarPart" style="border-left: black solid 3px;">
+          <div
+            id="enemyName"
+            class="bottomBarPartUpper"
+            style="padding-left: 1vw;"
+          >
+            Dżony Wybielony
+          </div>
+          <div class="bottomBarPartBottom">
+            <div class="bottomBarPartBottomLeft">
+              <div
+                class="container"
+                style="
+                  position: absolute;
+                  left: 70vw;
+                  width: 15vw;
+                  height: 4vh;
+                "
+              ></div>
+              <div
+                id="enemyHP"
+                style="
+                  background-color: crimson;
+                  width: 100%;
+                  height: 100%;
+                  float: right;
+                "
+              ></div>
+            </div>
+            <div class="bottomBarPartBottomRight">
+              <div
+                class="container"
+                style="
+                  position: absolute;
+                  left: 85vw;
+                  width: 15vw;
+                  height: 4vh;
+                "
+              ></div>
+              <div
+                id="enemyMP"
+                style="
+                  background-color: cornflowerblue;
+                  width: 100%;
+                  height: 100%;
+                  float: right;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="mapTable" class="hidden">
+      <div id="mapMap"></div>
+    </div>
+    <div id="shopBackground" class="hidden">
+      <div id="shopTop"></div>
+      <div id="shopMain">
+        <div
+          style="display: flex; flex-direction: column;"
+          class="shopMainWaste"
+        >
+          <div id="shopPlayer">
+            <div id="shopPlayerName">Stefan</div>
+            <div id="shopPlayerStats">
+              <div
+                style="border-top: black solid 2px;"
+                class="shopPlayerStatContainer"
+              >
+                <div class="shopPlayerStat">Pieniążki</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Punkty życia</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Punkty many</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Siła</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Moc magiczna</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Szybkość</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Szansa na unik</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Celność</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+              <div style="border-bottom: none;" class="shopPlayerStatContainer">
+                <div class="shopPlayerStat">Szczęście</div>
+                <div class="shopPlayerStatValue"></div>
+              </div>
+            </div>
+          </div>
+          <div id="shopPlayerWaste"></div>
+        </div>
+        <div id="shopMainCenter">
+          <div
+            style="
+              border-left: black solid 2px;
+              border-right: black solid 2px;
+              background-color: cadetblue;
+            "
+            class="shopMainCenterWaste"
+          >
+            <div id="shopInfoName">Nazwa:</div>
+            <div id="shopInfoPrice">Cena:</div>
+            <div id="shopInfoDescription">Opis:</div>
+          </div>
+          <div id="shopItems">
+            <div class="shopItem potion">
+              <div style="top: 30%;" class="shopItemStats hidden"></div>
+              <div class="shopItemNameContainer">
+                <div class="shopItemName"></div>
+              </div>
+              <div class="shopItemPriceContainer">
+                <div class="shopItemPrice"></div>
+              </div>
+              <div class="shopItemDescriptionContainer">
+                <div class="shopItemDescripton"></div>
+              </div>
+            </div>
+            <div class="shopItem potion">
+              <div style="top: 45%;" class="shopItemStats hidden"></div>
+              <div class="shopItemNameContainer">
+                <div class="shopItemName"></div>
+              </div>
+              <div class="shopItemPriceContainer">
+                <div class="shopItemPrice"></div>
+              </div>
+              <div class="shopItemDescriptionContainer">
+                <div class="shopItemDescripton"></div>
+              </div>
+            </div>
+            <div class="shopItem skill">
+              <div style="top: 35%;" class="shopItemStats hidden"></div>
+              <div class="shopItemNameContainer">
+                <div class="shopItemName"></div>
+              </div>
+              <div class="shopItemPriceContainer">
+                <div class="shopItemPrice"></div>
+              </div>
+              <div class="shopItemDescriptionContainer">
+                <div class="shopItemDescripton"></div>
+              </div>
+            </div>
+            <div style="border-bottom: black solid 2px;" class="shopItem skill">
+              <div style="top: 50%;" class="shopItemStats hidden"></div>
+              <div class="shopItemNameContainer">
+                <div class="shopItemName"></div>
+              </div>
+              <div class="shopItemPriceContainer">
+                <div class="shopItemPrice"></div>
+              </div>
+              <div class="shopItemDescriptionContainer">
+                <div class="shopItemDescripton"></div>
+              </div>
+            </div>
+          </div>
+          <div style="flex: 3;" class="shopMainCenterWaste">
+            <div id="shopLeave">Wyjdź</div>
+          </div>
+        </div>
+        <div class="shopMainWaste"></div>
+        <div id="shopSkillObtainedBackground" class="hidden">
+          Wybierz umiejętność do zastąpienia :c
+          <div id="shopSkillObtainedCancel">Anuluj zakup</div>
+        </div>
+
+        <div id="shopSkillsObtainedArea" class="hidden">
+          <div
+            class="shopSkillObtained"
+            style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;"
+          >
+            <div class="shopSkillObtainedTitle"></div>
+            <div class="shopSkillObtainedDescription"></div>
+            <div class="shopSkillObtainedStat"></div>
+          </div>
+          <div class="shopSkillObtained">
+            <div class="shopSkillObtainedTitle"></div>
+            <div class="shopSkillObtainedDescription"></div>
+            <div class="shopSkillObtainedStat"></div>
+          </div>
+          <div class="shopSkillObtained">
+            <div class="shopSkillObtainedTitle"></div>
+            <div class="shopSkillObtainedDescription"></div>
+            <div class="shopSkillObtainedStat"></div>
+          </div>
+          <div
+            class="shopSkillObtained"
+            style="
+              border: none;
+              border-bottom-left-radius: 1vw;
+              border-bottom-right-radius: 1vw;
+            "
+          >
+            <div class="shopSkillObtainedTitle"></div>
+            <div class="shopSkillObtainedDescription"></div>
+            <div class="shopSkillObtainedStat"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const playerNameDiv = document.getElementById("playerName");
+      const enemyNameDiv = document.getElementById("enemyName");
+      const buttonsPlus = document.getElementsByClassName("buttonPlus");
+      const buttonsMinus = document.getElementsByClassName("buttonMinus");
+      const startField = document.getElementById("startField");
+      const startAcceptButton = document.getElementById("startAcceptButton");
+      const nameField = document.getElementById("nameField");
+      const fightStage = document.getElementById("fightStage");
+      const attributeValueDivs = document.getElementsByClassName(
+        "attributeValue"
+      );
+      let attributeValue = [];
+      const poolPointsDiv = document.getElementById("poolPointsValue");
+      let poolPointsValue = Math.floor(poolPointsDiv.innerText);
+      const playerStatsDiv = document.getElementById("playerStats");
+      const playerStatsValue = document.getElementsByClassName(
+        "playerStatValue"
+      );
+      const timelineActionDivs = document.getElementsByClassName(
+        "timelineAction"
+      );
+      const fightMessageDiv = document.getElementById("fightMessage");
+
+      const playerHpDiv = document.getElementById("playerHP");
+      const playerMpDiv = document.getElementById("playerMP");
+      const enemyHpDiv = document.getElementById("enemyHP");
+      const enemyMpDiv = document.getElementById("enemyMP");
+      const containers = document.getElementsByClassName("container");
+
+      const fightSkillsArea = document.getElementById("fightSkillsArea");
+      const fightSkillDivs = document.getElementsByClassName("fightSkill");
+      const fightSkillTitles = document.getElementsByClassName(
+        "fightSkillTitle"
+      );
+      const fightSkillDescriptions = document.getElementsByClassName(
+        "fightSkillDescription"
+      );
+      const fightSkillStats = document.getElementsByClassName("fightSkillStat");
+
+      const enemyDiv = document.getElementById("enemy");
+
+      //rangi zdolności
+      const playerAbilities = [
+        //gracz
+        {
+          name: "Pięścią w twarz",
+          description: "Czy to ptak? Czy to samolot? Nie, to pięść.",
+          type: "Physical",
+          speed: 150, //standard 75
+          cost: 0,
+          damage: 25, //standard 50
+          accuracy: 80, //sumujemy celność postaci i celnośc zdolności, dzielimy przez dwa i mamy szansę na trafienie
+          index: 0,
+        },
+        {
+          name: "Kopniak w jaja",
+          description: "Tak się nie robi!",
+          type: "Physical",
+          speed: 60,
+          cost: 0,
+          damage: 45,
+          accuracy: 50,
+          index: 1,
+        },
+        {
+          name: "Pierd",
+          description: "Przez niektórych rozpatrywany jako grzech",
+          type: "Magical",
+          speed: 90,
+          cost: 15,
+          damage: 25,
+          accuracy: 80,
+          index: 2,
+        },
+        {
+          name: "Strzelenie palcami",
+          description: "Po wystrzale wracają na swoje miejsce",
+          type: "Magical",
+          speed: 70,
+          cost: 20,
+          damage: 35,
+          accuracy: 70,
+          index: 3,
+        },
+        {
+          name: "Podpalenie włosów pod pachą",
+          description: "Nie pytaj jak, ważny jest ból",
+          type: "Magical",
+          speed: 80,
+          cost: 45,
+          damage: 65,
+          accuracy: 70,
+          index: 4,
+        },
+        {
+          name: "Uderzenie patykiem",
+          description: "Wysoce efektywne przeciw pokrzywom",
+          type: "Physical",
+          speed: 100,
+          cost: 0,
+          damage: 45,
+          accuracy: 80,
+          index: 5,
+        },
+        {
+          name: "Rzut szybkim sztyletem",
+          description: "Jabłko na głowie przeciwnika ułatwia zadanie",
+          type: "Physical",
+          speed: 120,
+          cost: 0,
+          damage: 80,
+          accuracy: 50,
+          index: 6,
+        },
+        {
+          name: "Bździąk w nos",
+          description: "Co to jest bździąk?",
+          type: "Physical",
+          speed: 300,
+          cost: 0,
+          damage: 10,
+          accuracy: 100,
+          index: 7,
+        },
+        {
+          name: "Rzut kartą",
+          description: "Co w tym takiego magicznego?",
+          type: "Magical",
+          speed: 95,
+          cost: 20,
+          damage: 50,
+          accuracy: 80,
+          index: 8,
+        },
+        {
+          name: "Rzut śniezką",
+          description: "Ciekawe czy w środku jest kamień...",
+          type: "Magical",
+          speed: 75,
+          cost: 40,
+          damage: 60,
+          accuracy: 70,
+          index: 9,
+        },
+        {
+          name: "Iskra z palca",
+          description: "Prosta sztuczka, nie gadaj, że ty tak nie umiesz",
+          type: "Magical",
+          speed: 90,
+          cost: 30,
+          damage: 45,
+          accuracy: 90,
+          index: 10,
+        },
+      ];
+
+      //tworzenie postaci
+      let money = 30;
+      let player = {
+        name: "Czesław",
+        maxhealth: 100,
+        health: 100,
+        maxmana: 100,
+        mana: 100,
+        power: 10,
+        magicPower: 10,
+        dodge: 10,
+        accuracy: 80,
+        luck: 10,
+        speed: 110,
+        // shield: 0,
+        // block: 0,
+        abilitiesObtained: [0, 1, 2, 3],
+      };
+
+      for (let i = 0; i < buttonsPlus.length; i++) {
+        attributeValue[i] = Math.floor(attributeValueDivs[i].innerText);
+
+        poolPointsValue -= attributeValue[i];
+
+        buttonsPlus[i].onclick = () => {
+          if (poolPointsValue == 0 || attributeValue[i] == 30) {
+          } else {
+            attributeValue[i] += 1;
+            attributeValueDivs[i].innerText =
+              Math.floor(attributeValueDivs[i].innerText) + 1;
+            poolPointsValue -= 1;
+            attributeValueDivs[i].style.color = "black";
+            poolPointsDiv.innerText = poolPointsValue;
+          }
+
+          if (attributeValue[i] == 30) {
+            attributeValueDivs[i].style.color = "green";
+          }
+
+          if (poolPointsValue == 0) {
+            poolPointsDiv.style.color = "red";
+          }
+        };
+
+        buttonsMinus[i].onclick = () => {
+          if (attributeValue[i] == 5) {
+          } else {
+            attributeValue[i] -= 1;
+            attributeValueDivs[i].innerText =
+              Math.floor(attributeValueDivs[i].innerText) - 1;
+            poolPointsValue += 1;
+            attributeValueDivs[i].style.color = "black";
+            poolPointsDiv.innerText = poolPointsValue;
+          }
+
+          if (attributeValue[i] == 5) {
+            attributeValueDivs[i].style.color = "red";
+          }
+
+          poolPointsDiv.style.color = "black";
+        };
+      }
+      poolPointsDiv.innerText = poolPointsValue;
+
+      startAcceptButton.onclick = () => {
+        if (nameField.value.replace(/\s/g, "").length) {
+          player.name = nameField.value;
+        }
+        player.health = attributeValue[0] * 8 + 100;
+        player.maxhealth = player.health;
+        player.power = attributeValue[1];
+        player.mana = attributeValue[2] * 8;
+        player.maxmana = player.mana;
+        player.magicPower = attributeValue[3];
+        player.speed = attributeValue[4] + 100;
+        player.dodge = attributeValue[5] - 5;
+        player.accuracy = attributeValue[6] + 70;
+        player.luck = attributeValue[7];
+
+        startField.classList.add("hidden");
+
+        playerNameDiv.innerText = player.name;
+
+        mapTable.classList.remove("hidden");
+
+        if (window.orientation == 0) {
+          alert("Obróć ekran głąbie");
+        }
+      };
+
+      //przygotowanie sceny walki
+      playerNameDiv.onmouseover = () => {
+        playerStatsValue[0].innerText = player.health;
+        playerStatsValue[1].innerText = player.mana;
+        playerStatsValue[2].innerText = player.power;
+        playerStatsValue[3].innerText = player.magicPower;
+        playerStatsValue[4].innerText = player.speed;
+        playerStatsValue[5].innerText = player.dodge;
+        playerStatsValue[6].innerText = player.accuracy;
+        playerStatsValue[7].innerText = player.luck;
+        playerStatsDiv.classList.remove("hidden");
+      };
+
+      playerNameDiv.onmouseout = () => {
+        playerStatsDiv.classList.add("hidden");
+      };
+
+      containers[0].onmouseover = () => {
+        containers[0].innerText = `${player.mana}/${player.maxmana}`;
+      };
+      containers[0].onmouseout = () => {
+        containers[0].innerText = "";
+      };
+
+      containers[1].onmouseover = () => {
+        containers[1].innerText = `${player.health}/${player.maxhealth}`;
+      };
+      containers[1].onmouseout = () => {
+        containers[1].innerText = "";
+      };
+
+      containers[2].onmouseover = () => {
+        containers[2].innerText = `${enemy.health}/${enemy.maxhealth}`;
+      };
+      containers[2].onmouseout = () => {
+        containers[2].innerText = "";
+      };
+
+      containers[3].onmouseover = () => {
+        containers[3].innerText = `${enemy.mana}/${enemy.maxmana}`;
+      };
+      containers[3].onmouseout = () => {
+        containers[3].innerText = "";
+      };
+
+      //przygotowanie skilli gracza
+      function refreshFightSkills() {
+        for (let i = 0; i < 4; i++) {
+          currentSkill = playerAbilities[player.abilitiesObtained[i]];
+
+          fightSkillTitles[i].innerText = currentSkill.name;
+          fightSkillDescriptions[i].innerText = currentSkill.description;
+          if (currentSkill.type == "Physical") {
+            fightSkillStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${currentSkill.damage} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
+          } else {
+            fightSkillStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${currentSkill.damage}  Koszt many ${currentSkill.cost} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
+          }
+
+          fightSkillDivs[i].onmouseover = () => {
+            if (
+              player.mana < playerAbilities[player.abilitiesObtained[i]].cost
+            ) {
+              fightSkillDivs[i].style.backgroundColor = "rgb(160, 25, 25)";
+              fightSkillDivs[i].style.cursor = "no-drop";
+            } else {
+              fightSkillDivs[i].style.backgroundColor = "rgb(175, 114, 114)";
+              fightSkillDivs[i].style.cursor = "pointer";
+            }
+          };
+
+          fightSkillDivs[i].onmouseout = () => {
+            fightSkillDivs[i].style.backgroundColor = "rosybrown";
+          };
+
+          fightSkillDivs[i].onclick = () => {
+            playerChosenAttack = playerAbilities[player.abilitiesObtained[i]];
+            if (player.mana >= playerChosenAttack.cost) {
+              player.mana -= playerChosenAttack.cost;
+              updateHpMpBars();
+              fightSkillsArea.classList.add("hidden");
+              fightMessageDiv.innerText = `${player.name} zamierza "${playerChosenAttack.name}"`;
+              setTimeout(() => {
+                fightMessageDiv.innerText = "";
+                playerAttackPhase();
+              }, 3000);
+            }
+          };
+        }
+      }
+
+      //przeciwnicy
+      const names = [
+        "Kubuś",
+        "Filip",
+        "Marcin",
+        "Seweryn",
+        "Konrad",
+        "Jakub",
+        "Krzysztof",
+        "Jan",
+        "Tomasz",
+      ];
+      const menelName = names[Math.floor(Math.random() * names.length)];
+
+      const enemies = [
+        [
+          //Tier0
+          {
+            name: "Piesek",
+            maxhealth: 70,
+            health: 70,
+            maxmana: 30,
+            mana: 30,
+            power: 5,
+            magicPower: 5,
+            dodge: 15,
+            accuracy: 90,
+            luck: 10,
+            speed: 145,
+          },
+          {
+            name: "Gołąb",
+            maxhealth: 65,
+            health: 65,
+            maxmana: 100,
+            mana: 100,
+            power: 5,
+            magicPower: 15,
+            dodge: 40,
+            accuracy: 100,
+            luck: 5,
+            speed: 200,
+          },
+          {
+            name: "13-latek",
+            maxhealth: 50,
+            health: 50,
+            maxmana: 50,
+            mana: 50,
+            power: 5,
+            magicPower: 5,
+            dodge: 20,
+            accuracy: 80,
+            luck: 75,
+            speed: 120,
+          },
+          {
+            name: "Pajajajonk",
+            maxhealth: 60,
+            health: 60,
+            maxmana: 40,
+            mana: 40,
+            power: 5,
+            magicPower: 10,
+            dodge: 15,
+            accuracy: 90,
+            luck: 10,
+            speed: 110,
+          },
+        ],
+        [
+          //tier1
+          {
+            name: "Licealista",
+            maxhealth: 137,
+            health: 137,
+            maxmana: 420,
+            mana: 420,
+            power: 0,
+            magicPower: 15,
+            dodge: 10,
+            accuracy: 80,
+            luck: 10,
+            speed: 105,
+          },
+          {
+            name: "Konduktor",
+            maxhealth: 150,
+            health: 150,
+            maxmana: 180,
+            mana: 180,
+            power: 10,
+            magicPower: 15,
+            dodge: 5,
+            accuracy: 80,
+            luck: 10,
+            speed: 100,
+            image: "konduktor.png",
+          },
+          {
+            name: "Drwal Andrzej",
+            maxhealth: 150,
+            health: 150,
+            maxmana: 200,
+            mana: 200,
+            power: 5,
+            magicPower: 15,
+            dodge: 10,
+            accuracy: 80,
+            luck: 30,
+            speed: 105,
+          },
+          {
+            name: "Karłowaty gigant",
+            maxhealth: 170,
+            health: 170,
+            maxmana: 20,
+            mana: 20,
+            power: 15,
+            magicPower: 5,
+            dodge: 10,
+            accuracy: 70,
+            luck: 10,
+            speed: 90,
+          },
+        ],
+        [
+          //tier2 (narazie boss)
+          {
+            name: `Menel ${menelName}`,
+            maxhealth: 280,
+            health: 280,
+            maxmana: 150,
+            mana: 150,
+            power: 15,
+            magicPower: 10,
+            dodge: 5,
+            accuracy: 90,
+            luck: 10,
+            speed: 80,
+          },
+        ],
+      ];
+      const enemyAbilities = [
+        [
+          //tier0
+          [
+            //piesek
+            {
+              name: "Ugryzienie",
+              type: "Magical",
+              speed: 105,
+              cost: 15,
+              damage: 30,
+              accuracy: 100,
+            },
+            {
+              name: "Podrapanie",
+              type: "Physical",
+              speed: 120,
+              cost: 0,
+              damage: 20,
+              accuracy: 80,
+            },
+          ],
+          [
+            //gołąb
+            {
+              name: "Wygruchanie",
+              type: "Physical",
+              speed: 200, //standard 75
+              cost: 0,
+              damage: 5, //standard 50
+              accuracy: 80,
+            },
+            {
+              name: "Podglądanie",
+              type: "Magical",
+              speed: 250,
+              cost: 50,
+              damage: 10,
+              accuracy: 100,
+            },
+          ],
+          [
+            // 13-latek
+            {
+              name: "Płacz",
+              type: "Magical",
+              speed: 100, //standard 75
+              cost: 30,
+              damage: 25, //standard 50
+              accuracy: 90,
+            },
+            {
+              name: "Wbicie zębów",
+              type: "Physical",
+              speed: 150,
+              cost: 0,
+              damage: 20,
+              accuracy: 75,
+            },
+            {
+              name: "Defekacja na klatę",
+              type: "Magical",
+              speed: 50,
+              cost: 15,
+              damage: 50,
+              accuracy: 70,
+            },
+          ],
+          [
+            //pajajajonk
+            {
+              name: "Ugryzienie",
+              type: "Physical",
+              speed: 105,
+              cost: 0,
+              damage: 10,
+              accuracy: 100,
+            },
+            {
+              name: "Strzał siecią",
+              type: "Magical",
+              speed: 90,
+              cost: 10,
+              damage: 20,
+              accuracy: 80,
+            },
+          ],
+        ],
+        [
+          //tier1
+          [
+            //licealista
+            {
+              name: "Dźgnięcie cyrklem",
+              type: "Physical",
+              speed: 75,
+              cost: 0,
+              damage: 20,
+              accuracy: 50,
+            },
+            {
+              name: "Przesunięcie fazowe",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+            {
+              name: "Równanie stanu gazu doskonałego",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+            {
+              name: "Nierekurencyjne zakupy międzyplanetarne",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+            {
+              name: "Legitymizacja karła",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+            {
+              name: "Przemiana izochoryczna",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+          ],
+          [
+            //konduktor
+            {
+              name: "Pięścią w twarz",
+              type: "Physical",
+              speed: 150, //standard 75
+              cost: 0,
+              damage: 30, //standard 50
+              accuracy: 80, //sumujemy celność postaci i celnośc zdolności, dzielimy przez dwa i mamy szansę na trafienie
+            },
+            {
+              name: "Uderzenie torem",
+              type: "Physical",
+              speed: 60,
+              cost: 0,
+              damage: 45,
+              accuracy: 30,
+            },
+            {
+              name: "Kontrola biletów",
+              type: "Magical",
+              speed: 75,
+              cost: 40,
+              damage: 45,
+              accuracy: 70,
+            },
+          ],
+          [
+            //drwal andrzej
+            {
+              name: "Szał siekier",
+              type: "Physical",
+              speed: 70, //standard 75
+              cost: 0,
+              damage: 20, //standard 50
+              accuracy: 50,
+            },
+            {
+              name: "Ryzyk fizyk",
+              type: "Magical",
+              speed: 120,
+              cost: 50,
+              damage: 40,
+              accuracy: 80,
+            },
+          ],
+          [
+            // Karłowaty gigant
+            {
+              name: "Uderzenie karłowatą maczugą",
+              type: "Physical",
+              speed: 80, //standard 75
+              cost: 0,
+              damage: 50, //standard 50
+              accuracy: 70,
+            },
+            {
+              name: "Śmierdzący karłowaty oddech",
+              type: "Magical",
+              speed: 120,
+              cost: 20,
+              damage: 40,
+              accuracy: 80,
+            },
+            {
+              name: "Karłowatą pięścią w normalną twarz",
+              type: "Physical",
+              speed: 150, //standard 75
+              cost: 0,
+              damage: 30, //standard 50
+              accuracy: 80, //sumujemy celność postaci i celnośc zdolności, dzielimy przez dwa i mamy szansę na trafienie
+            },
+          ],
+        ],
+        [
+          //tier2
+          [
+            //menel
+            {
+              name: "Atak tulipanem",
+              type: "Magical",
+              speed: 75, //standard 75
+              cost: 30,
+              damage: 35, //standard 50
+              accuracy: 75,
+            },
+            {
+              name: "Pijacka szarża",
+              type: "Physical",
+              speed: 150,
+              cost: 0,
+              damage: 40,
+              accuracy: 50,
+            },
+            {
+              name: "Spanie pod ławką",
+              type: "Magical",
+              speed: 30, //standard 75
+              cost: 80,
+              damage: 0, //standard 50
+              accuracy: 200,
+              special: "heal",
+              specialValue: 200,
+            },
+          ],
+        ],
+      ];
+
+      //walka
+      let enemyTimelineLocation;
+      let enemyTimelineSpeed;
+      let playerTimelineLocation;
+      let playerTimelineSpeed;
+
+      let timelineStop = false;
+
+      let enemyIndex;
+      let enemy;
+
+      let enemyCountRegularAttacks;
+      let enemySpecialAttackIndex;
+
+      function fightStart() {
+        fightStage.classList.remove("hidden");
+        refreshFightSkills();
+        enemy = enemies[enemyTier][enemyIndex];
+        enemyOldImage = document.getElementsByClassName("enemyImage");
+        if (enemyOldImage.length == 1) {
+          enemyDiv.removeChild(enemyOldImage[0]);
+        }
+        if (enemy.image != undefined) {
+          enemyDiv.classList.remove("enemyNoImage");
+          const enemyImage = document.createElement("img");
+          enemyImage.classList.add("enemyImage");
+          enemyImage.src = "enemies/" + `${enemy.image}`;
+          enemyDiv.appendChild(enemyImage);
+        } else {
+          enemyDiv.classList.add("enemyNoImage");
+        }
+        updateHpMpBars();
+        enemyNameDiv.innerText = enemy.name;
+        enemyCountRegularAttacks = 0;
+        enemySpecialAttackIndex = undefined;
+        for (let i = 0; i < enemyAbilities[enemyTier][enemyIndex].length; i++) {
+          if (enemyAbilities[enemyTier][enemyIndex][i].special == undefined) {
+            enemyCountRegularAttacks += 1;
+          } else {
+            enemySpecialAttackIndex = i;
+          }
+        }
+
+        timelineActionDivs[0].classList.remove("transition");
+        setTimeout(() => {
+          timelineActionDivs[0].classList.add("transition");
+        }, 120);
+        enemyTimelineLocation = 10;
+        timelineActionDivs[0].style.transform = `translateX(${enemyTimelineLocation}vw`;
+        enemyTimelineSpeed = enemy.speed / 75;
+
+        timelineActionDivs[1].classList.remove("transition");
+        setTimeout(() => {
+          timelineActionDivs[1].classList.add("transition");
+        }, 120);
+        playerTimelineLocation = 0;
+        timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
+        playerTimelineSpeed = player.speed / 75;
+
+        setTimeout(enemyTimelineStart, 1000);
+        setTimeout(playerTimelineStart, 1000);
+      }
+
+      function enemyTimelineStart() {
+        timelineStop = 0;
+        fightMessageDiv.innerText = "";
+        enemyTimelineGoing();
+      }
+
+      function enemyTimelineGoing() {
+        enemyTimelineGoingInterval = setInterval(() => {
+          if (!timelineStop) {
+            enemyTimelineLocation += enemyTimelineSpeed;
+            timelineActionDivs[0].style.transform = `translateX(${enemyTimelineLocation}vw`;
+
+            if (enemyTimelineLocation >= 75) {
+              enemyChooseAttack();
+              clearInterval(enemyTimelineGoingInterval);
+            }
+          }
+        }, 100);
+      }
+
+      function playerTimelineStart() {
+        timelineStop = 0;
+        fightMessageDiv.innerText = "";
+        playerTimelineGoing();
+      }
+
+      function playerTimelineGoing() {
+        playerTimelineGoingInterval = setInterval(() => {
+          if (!timelineStop) {
+            playerTimelineLocation += playerTimelineSpeed;
+            timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
+
+            if (playerTimelineLocation >= 75) {
+              playerChooseAttack();
+              clearInterval(playerTimelineGoingInterval);
+            }
+          }
+        }, 100);
+      }
+
+      let enemyChosenAttack;
+      let enemySpecialAttack;
+      function enemyChooseAttack() {
+        enemyTimelineLocation = 75;
+        timelineActionDivs[0].style.transform = `translateX(${enemyTimelineLocation}vw`;
+        timelineStop = 1;
+
+        if (
+          enemySpecialAttackIndex != undefined &&
+          enemyAbilities[enemyTier][enemyIndex][enemySpecialAttackIndex].cost <=
+            enemy.mana &&
+          enemy.name == `Menel ${menelName}` &&
+          enemy.health <= 100
+        ) {
+          enemySpecialAttack = true;
+          enemyChosenAttack =
+            enemyAbilities[enemyTier][enemyIndex][enemySpecialAttackIndex];
+
+          enemy.mana -= enemyChosenAttack.cost;
+
+          fightMessageDiv.innerHTML = `${enemy.name} będzie używał specjalnej zdolności <br> "${enemyChosenAttack.name}"`;
+          setTimeout(() => {
+            fightMessageDiv.innerText = "";
+            enemyAttackPhase();
+          }, 3000);
+        } else {
+          enemySpecialAttack = false;
+          skillIndex = Math.floor(Math.random() * enemyCountRegularAttacks); //zmienić!!!!!!!!!!!!!!!!!
+          enemyChosenAttack = enemyAbilities[enemyTier][enemyIndex][skillIndex];
+          while (enemy.mana < enemyChosenAttack.cost) {
+            skillIndex = Math.floor(
+              Math.random() * enemyAbilities[enemyTier][enemyIndex].length
+            );
+            enemyChosenAttack =
+              enemyAbilities[enemyTier][enemyIndex][skillIndex];
+          }
+
+          enemy.mana -= enemyChosenAttack.cost;
+          updateHpMpBars();
+
+          fightMessageDiv.innerText = `${enemy.name} szykuje się do "${enemyChosenAttack.name}"`;
+          setTimeout(() => {
+            fightMessageDiv.innerText = "";
+            enemyAttackPhase();
+          }, 2000);
+        }
+      }
+
+      let playerChosenAttack;
+      function playerChooseAttack() {
+        playerTimelineLocation = 75;
+        timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
+        timelineStop = 1;
+        fightSkillsArea.classList.remove("hidden");
+      }
+
+      function enemyAttackPhase() {
+        timelineStop = 0;
+        enemyAttackPhaseGoing();
+      }
+
+      function enemyAttackPhaseGoing() {
+        enemyAttackPhaseGoingInterval = setInterval(() => {
+          if (!timelineStop) {
+            enemyTimelineLocation += enemyChosenAttack.speed / 100;
+            timelineActionDivs[0].style.transform = `translateX(${enemyTimelineLocation}vw`;
+
+            if (enemyTimelineLocation >= 100) {
+              enemyAttack();
+              clearInterval(enemyAttackPhaseGoingInterval);
+            }
+          }
+        }, 100);
+      }
+
+      function playerAttackPhase() {
+        timelineStop = 0;
+        playerAttackPhaseGoing();
+      }
+
+      function playerAttackPhaseGoing() {
+        playerAttackPhaseGoingInterval = setInterval(() => {
+          if (!timelineStop) {
+            playerTimelineLocation += playerChosenAttack.speed / 100;
+            timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
+
+            if (playerTimelineLocation >= 100) {
+              playerAttack();
+              clearInterval(playerAttackPhaseGoingInterval);
+            }
+          }
+        }, 100);
+      }
+
+      function enemyAttack() {
+        timelineStop = 1;
+        if (enemySpecialAttack == true) {
+          if (enemy.name == `Menel ${menelName}`) {
+            enemy.health += enemyChosenAttack.specialValue;
+            if (enemy.health > enemy.maxhealth) {
+              enemy.health = enemy.maxhealth;
+            }
+            updateHpMpBars();
+            fightMessageDiv.innerText = `${enemy.name} leczy się za ${enemyChosenAttack.specialValue} życia`;
+          }
+        } else {
+          enemyAccuracy = (enemy.accuracy + enemyChosenAttack.accuracy) / 2;
+          if (Math.random() * 100 > enemyAccuracy) {
+            fightMessageDiv.innerText = `${enemy.name} nie trafia, beka z typa`;
+          } else if (
+            enemyChosenAttack.type == "Physical" &&
+            Math.random() * 100 < player.dodge
+          ) {
+            fightMessageDiv.innerText = `${player.name} unika, nikomu to nie zaimponowało.`;
+          } else {
+            if (enemyChosenAttack.type == "Physical") {
+              enemyDamage = enemyChosenAttack.damage + enemy.power;
+            } else {
+              enemyDamage = enemyChosenAttack.damage + enemy.magicPower;
+            }
+            if (Math.random() * 100 < enemy.luck) {
+              enemyDamage = Math.floor(enemyDamage * 1.5); //kryt
+              fightMessageDiv.innerText = `${enemy.name} trafia krytycznie zadając ${enemyDamage} obrażeń, śmieć`;
+            } else {
+              fightMessageDiv.innerText = `${enemy.name} zadaje ${enemyDamage} obrażeń`;
+            }
+            player.health -= enemyDamage;
+          }
+          if (player.health <= 0) {
+            player.health = 0;
+            setTimeout(() => {
+              fightMessageDiv.innerText = `Przegrywasz ${player.name} :(`;
+              clearInterval(enemyTimelineGoingInterval);
+              clearInterval(playerTimelineGoingInterval);
+              clearInterval(enemyAttackPhaseGoingInterval);
+              clearInterval(playerAttackPhaseGoingInterval);
+            }, 3000);
+          }
+          updateHpMpBars();
+        }
+
+        if (player.health != 0) {
+          enemyTimelineLocation = -6;
+          timelineActionDivs[0].classList.remove("transition");
+          timelineActionDivs[0].style.transform = `translateX(${enemyTimelineLocation}vw`;
+          setTimeout(enemyTimelineStart, 2000);
+          setTimeout(() => {
+            timelineActionDivs[0].classList.add("transition");
+          }, 120);
+        }
+      }
+
+      function playerAttack() {
+        timelineStop = 1;
+
+        playerAccuracy = (player.accuracy + playerChosenAttack.accuracy) / 2;
+        if (Math.random() * 100 > playerAccuracy) {
+          fightMessageDiv.innerHTML = `${player.name} nie trafia, nawet najlepszym się zdarza <br> a co dopiero tobie`;
+        } else if (
+          playerChosenAttack.type == "Physical" &&
+          Math.random() * 100 < enemy.dodge
+        ) {
+          fightMessageDiv.innerText = `${enemy.name} unika, aha fajnie`;
+        } else {
+          if (playerChosenAttack.type == "Physical") {
+            playerDamage = playerChosenAttack.damage + player.power;
+          } else {
+            playerDamage = playerChosenAttack.damage + player.magicPower;
+          }
+
+          if (Math.random() * 100 < player.luck) {
+            playerDamage = Math.floor(playerDamage * 1.5);
+            fightMessageDiv.innerText = `${player.name} trafia krytycznie zadając ${playerDamage} obrażeń, najs`;
+          } else {
+            fightMessageDiv.innerText = `${player.name} zadaje ${playerDamage} obrażeń`;
+          }
+          enemy.health -= playerDamage;
+          if (enemy.health <= 0) {
+            enemy.health = 0;
+            moneyEarn = Math.floor(
+              Math.random() * ((enemyTier + 1) * 10) + (enemyTier + 1) * 10
+            );
+
+            money += moneyEarn;
+            setTimeout(() => {
+              fightMessageDiv.innerHTML = `Wygrywasz ${player.name}! <br> Zdobywasz ${moneyEarn} pieniążków 💰`;
+              enemyTimelineLocation = 0;
+              enemyTimelineSpeed = 0;
+              clearInterval(enemyTimelineGoingInterval);
+              clearInterval(playerTimelineGoingInterval);
+              clearInterval(enemyAttackPhaseGoingInterval);
+              clearInterval(playerAttackPhaseGoingInterval);
+              clearInterval(enemyTimelineGoingInterval);
+              clearInterval(playerTimelineGoingInterval);
+              clearInterval(enemyAttackPhaseGoingInterval);
+              clearInterval(playerAttackPhaseGoingInterval);
+            }, 3000);
+            setTimeout(() => {
+              enemy.health = enemy.maxhealth;
+              enemy.mana = enemy.maxmana;
+              enemyChoosenAttack = null;
+              // player.health += Math.floor(player.maxhealth * 0.1);
+              // if (player.health > player.maxhealth) {
+              //   player.health = player.maxhealth;
+              // }
+              player.mana += Math.floor(player.maxmana * 0.5);
+              if (player.mana > player.maxmana) {
+                player.mana = player.maxmana;
+              }
+              fightMessageDiv.innerText = ``;
+              mapTable.classList.remove("hidden");
+              fightStage.classList.add("hidden");
+            }, 5000);
+          }
+          updateHpMpBars();
+        }
+
+        if (enemy.health != 0) {
+          playerTimelineLocation = -6;
+          timelineActionDivs[1].classList.remove("transition");
+          timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
+
+          setTimeout(playerTimelineStart, 2000);
+          setTimeout(() => {
+            timelineActionDivs[1].classList.add("transition");
+          }, 120);
+        }
+      }
+
+      function updateHpMpBars() {
+        playerHpDiv.style.width =
+          (player.health / player.maxhealth) * 100 + "%";
+
+        playerMpDiv.style.width = (player.mana / player.maxmana) * 100 + "%";
+
+        enemyHpDiv.style.width = (enemy.health / enemy.maxhealth) * 100 + "%";
+
+        enemyMpDiv.style.width = (enemy.mana / enemy.maxmana) * 100 + "%";
+      }
+
+      //tworzenie mapy
+      const mapMap = document.getElementById("mapMap");
+      const mapTable = document.getElementById("mapTable");
+      for (let i = 0; i < 7; i++) {
+        const mapRow = document.createElement("div");
+        mapRow.classList.add("mapRow");
+        mapMap.appendChild(mapRow);
+        for (let j = 0; j < 7; j++) {
+          const mapField = document.createElement("div");
+          mapField.classList.add("mapField");
+          mapRow.appendChild(mapField);
+        }
+      }
+      const mapFields = document.getElementsByClassName("mapField");
+
+      const maps = [
+        [
+          "0.png",
+          [3, 9, 11, 14, 17, 20, 22, 26, 28, 30, 32, 34, 36, 40, 45],
+          [
+            [3, 9],
+            [3, 11],
+            [9, 14],
+            [9, 17],
+            [11, 17],
+            [11, 20],
+            [14, 22],
+            [17, 22],
+            [17, 26],
+            [20, 26],
+            [22, 28],
+            [22, 30],
+            [26, 32],
+            [26, 34],
+            [28, 36],
+            [30, 36],
+            [32, 40],
+            [34, 40],
+            [36, 45],
+            [40, 45],
+          ],
+        ],
+        [
+          "1.png",
+          [3, 9, 11, 15, 17, 19, 22, 24, 26, 29, 31, 33, 37, 39, 45],
+          [
+            [3, 9],
+            [3, 11],
+            [9, 15],
+            [9, 17],
+            [11, 17],
+            [11, 19],
+            [15, 22],
+            [17, 24],
+            [19, 26],
+            [22, 29],
+            [24, 31],
+            [26, 33],
+            [29, 37],
+            [31, 37],
+            [31, 39],
+            [33, 39],
+            [37, 45],
+            [39, 45],
+          ],
+        ],
+        [
+          "2.png",
+          [3, 9, 11, 16, 18, 24, 29, 33, 35, 37, 39, 41, 45],
+          [
+            [3, 9],
+            [3, 11],
+            [9, 16],
+            [11, 18],
+            [16, 24],
+            [18, 24],
+            [24, 29],
+            [24, 33],
+            [29, 35],
+            [29, 37],
+            [33, 39],
+            [33, 41],
+            [35, 45],
+            [37, 45],
+            [39, 45],
+            [41, 45],
+          ],
+        ],
+      ];
+      let mapIndex = Math.floor(Math.random() * maps.length);
+      let currentMap = maps[mapIndex];
+      const mapFieldsToUse = currentMap[1];
+
+      for (let i = 0; i < mapFieldsToUse.length; i++) {
+        mapFields[mapFieldsToUse[i]].classList.add("mapFieldAway");
+      }
+      //dodawanie do mapy dróg
+      const mapRoadsImg = document.createElement("img");
+      mapRoadsImg.src = "maps/" + maps[mapIndex][0];
+      mapRoadsImg.classList.add("mapRoadsImg");
+      mapMap.appendChild(mapRoadsImg);
+
+      //pierwszy krok na mapie
+      mapFields[45].classList.add("mapFieldAvailable");
+      mapFields[45].classList.remove("mapFieldAway");
+      mapFields[45].classList.add("mapBattle");
+      mapFields[3].classList.add("mapBattle");
+      //losowanie pozostałych wydarzeń Bitwa=B, Skarb=S, Gospoda=G, Uniwersytet=U, Fitness Klub=F
+      let shopsN = 3;
+
+      let mapFieldsAvailableIndex = mapFieldsToUse;
+
+      let shopIndex;
+      let shopIndexConnected;
+      let mapFieldsAvailableRandomIndex;
+      //dodawanie sklepów
+      for (let i = 0; i < shopsN; i++) {
+        //sprawdzanie czy sklepy są połącozne
+        shopIndexConnected = true;
+        while (shopIndexConnected == true) {
+          shopIndexConnected = false;
+
+          mapFieldsAvailableRandomIndex = Math.floor(
+            Math.random() * (mapFieldsAvailableIndex.length - 3) + 1
+          );
+
+          for (let j = 0; j < currentMap[2].length; j++) {
+            if (
+              currentMap[2][j][1] ==
+              mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex]
+            ) {
+              if (
+                mapFields[currentMap[2][j][0]].classList.contains("mapShop")
+              ) {
+                shopIndexConnected = true;
+                break;
+              }
+            }
+
+            if (
+              currentMap[2][j][0] ==
+              mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex]
+            ) {
+              if (
+                mapFields[currentMap[2][j][1]].classList.contains("mapShop")
+              ) {
+                shopIndexConnected = true;
+                break;
+              }
+            }
+          }
+        }
+
+        shopIndex = mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex];
+        mapFields[shopIndex].classList.add("mapShop");
+        mapFields[shopIndex].innerText = "S";
+        mapFieldsAvailableIndex.splice(mapFieldsAvailableRandomIndex, 1);
+      }
+
+      for (let i = 0; i < mapFieldsToUse.length; i++) {
+        mapFieldCheckingDiv = mapFields[mapFieldsToUse[i]];
+        if (!mapFieldCheckingDiv.classList.contains("mapShop")) {
+          mapFieldCheckingDiv.classList.add("mapBattle");
+        }
+
+        if (mapFieldCheckingDiv.classList.contains("mapBattle")) {
+          const icon = document.createElement("img");
+          icon.classList.add("mapBattleIcon");
+          icon.src = "icons/bitwa.png";
+          mapFieldCheckingDiv.appendChild(icon);
+        }
+      }
+
+      //dostępne trasy
+      let mapFieldNowIndex = null;
+      let mapFieldBeforeIndex = null;
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      let enemyTier = 0;
+      let mapFightN = 0;
+      let enemiesToFight;
+      let enemyToFightIndex;
+
+      enemiesToFight = [];
+      for (let j = 0; j < enemies[enemyTier].length; j++) {
+        enemiesToFight.push(j);
+      }
+
+      function mapUpdate() {
+        const mapFieldsAvailableNow = document.getElementsByClassName(
+          "mapFieldAvailable"
+        );
+        if (mapFieldBeforeIndex != null) {
+          mapFields[mapFieldBeforeIndex].classList.remove("mapFieldNow");
+          mapFields[mapFieldBeforeIndex].classList.add("mapFieldPast");
+        }
+        for (let i = 0; i < mapFieldsAvailableNow.length; i++) {
+          const mapField = mapFieldsAvailableNow[i];
+          mapField.onclick = () => {
+            for (let j = 0; j < mapFieldsAvailableNow.length; j++) {
+              mapFieldsAvailableNow[j].onclick = () => {};
+            }
+            mapTable.classList.add("hidden");
+
+            //zdarzenie np. walka
+
+            // wybór przeciwnika
+
+            //tymczasowo
+            if (mapFightN == 3) {
+              enemyTier = 1;
+              enemiesToFight = [];
+              for (let j = 0; j < enemies[enemyTier].length; j++) {
+                enemiesToFight.push(j);
+              }
+            }
+            if (mapFightN == 6) {
+              enemyTier = 2;
+              enemiesToFight = [];
+              for (let j = 0; j < enemies[enemyTier].length; j++) {
+                enemiesToFight.push(j);
+              }
+            }
+            //
+
+            enemyToFightIndex = Math.floor(
+              Math.random() * enemiesToFight.length
+            );
+            enemyIndex = enemiesToFight[enemyToFightIndex];
+
+            enemiesToFight.splice(enemyToFightIndex, 1);
+
+            //tymczasowo
+            mapFightN += 1;
+            //
+            if (mapField.classList.contains("mapBattle")) {
+              fightStart();
+            } else if (mapField.classList.contains("mapShop")) {
+              enterShop();
+            }
+
+            mapField.classList.add("mapFieldNow");
+
+            mapFieldBeforeIndex = mapFieldNowIndex;
+            for (let j = 0; j < mapFields.length; j++) {
+              if (mapFields[j].classList.contains("mapFieldAvailable")) {
+                mapFields[j].classList.add("mapFieldAway");
+                mapFields[j].classList.remove("mapFieldAvailable");
+              }
+            }
+
+            for (let j = 0; j < mapFields.length; j++) {
+              if (mapFields[j].classList.contains("mapFieldNow")) {
+                mapFields[j].classList.remove("mapFieldAvailable");
+                mapFieldNowIndex = j;
+                break;
+              }
+            }
+
+            for (let j = 0; j < currentMap[2].length; j++) {
+              if (currentMap[2][j][1] == mapFieldNowIndex) {
+                mapFields[currentMap[2][j][0]].classList.add(
+                  "mapFieldAvailable"
+                );
+                mapFields[currentMap[2][j][0]].classList.remove("mapFieldAway");
+              }
+            }
+            mapFields[mapFieldNowIndex].classList.remove("mapFieldAvailable");
+
+            mapUpdate();
+          };
+        }
+      }
+      mapUpdate();
+
+      //sklep
+      const shopPotions = [
+        {
+          name: "Miksturka życia",
+          price: 10,
+          description: "Leczy serce i duszę",
+          type: "static",
+          value: 30,
+        },
+        {
+          name: "Woda życia",
+          price: 15,
+          description: "Leczy serce, duszę i nie tylko",
+          type: "static",
+          value: 50,
+        },
+        {
+          name: "Procentowa miksturka życia",
+          price: 25,
+          description: "Leczy serce i duszę...procentowo",
+          type: "percentage",
+          value: 20,
+        },
+        {
+          name: "Procentowa woda życia",
+          price: 40,
+          description: "Leczy serce, duszę i nie tylko...procentowo",
+          type: "percentage",
+          value: 50,
+        },
+        {
+          name: "Jezioro życia",
+          price: 60,
+          description: "Leczy wszystkie troski świata tego",
+          type: "percentage",
+          value: 100,
+        },
+      ];
+      const shopSkills = [
+        {
+          name: "Patyk",
+          price: 10,
+          description: "Czemu nie mogę go wziąć z lasu?",
+          skillIndex: 5,
+        },
+        {
+          name: "Zapalniczka",
+          price: 40,
+          description: "Zabójcza broń w połączeniu z dezodorantem",
+          skillIndex: 4,
+        },
+        {
+          name: "Szybki sztylet",
+          price: 40,
+          description: "Dokąd tak pędzi?",
+          skillIndex: 6,
+        },
+        {
+          name: "Bździąk",
+          price: 30,
+          description:
+            "Szybki i zabójczy...no dobra, może nie aż taki zabójczy",
+          skillIndex: 7,
+        },
+        {
+          name: "Talia kart",
+          price: 25,
+          description: "Hazard ZAWSZE jest rozwiązaniem",
+          skillIndex: 8,
+        },
+        {
+          name: "Pudełko z lodem",
+          price: 15,
+          description: "Nakrwyka gratis",
+          skillIndex: 9,
+        },
+        {
+          name: "Sztuczne ognie",
+          price: 15,
+          description: "Niby sztuczne, ale poparzyć się da",
+          skillIndex: 10,
+        },
+      ];
+
+      const shopItemsNameDivs = document.getElementsByClassName("shopItemName");
+      const shopItemsPriceDivs = document.getElementsByClassName(
+        "shopItemPrice"
+      );
+      const shopItemsDescriptionDivs = document.getElementsByClassName(
+        "shopItemDescripton"
+      );
+      const shopItemsDivs = document.getElementsByClassName("shopItem");
+
+      const shopItemStatsDivs = document.getElementsByClassName(
+        "shopItemStats"
+      );
+
+      const shopSkillsObtainedArea = document.getElementById(
+        "shopSkillsObtainedArea"
+      );
+      const shopSkillsObtainedDivs = document.getElementsByClassName(
+        "shopSkillObtained"
+      );
+      const shopSkillsObtainedTitles = document.getElementsByClassName(
+        "shopSkillObtainedTitle"
+      );
+      const shopSkillsObtainedDescriptions = document.getElementsByClassName(
+        "shopSkillObtainedDescription"
+      );
+      const shopSkillsObtainedStats = document.getElementsByClassName(
+        "shopSkillObtainedStat"
+      );
+      const shopSkillObtainedBackground = document.getElementById(
+        "shopSkillObtainedBackground"
+      );
+      const shopSkillObtainedCancel = document.getElementById(
+        "shopSkillObtainedCancel"
+      );
+      const shopLeaveDiv = document.getElementById("shopLeave");
+
+      const shopBackgroundDiv = document.getElementById("shopBackground");
+
+      const shopTop = document.getElementById("shopTop");
+      const shopPlayerName = document.getElementById("shopPlayerName");
+      const shopPlayerStatValueDiv = document.getElementsByClassName(
+        "shopPlayerStatValue"
+      );
+      //po wejściu do sklepu
+      function enterShop() {
+        shopBackgroundDiv.classList.remove("hidden");
+        for (let i = 0; i < 4; i++) {
+          shopCurrentObtainedSkill =
+            playerAbilities[player.abilitiesObtained[i]];
+
+          shopSkillsObtainedTitles[i].innerText = shopCurrentObtainedSkill.name;
+          shopSkillsObtainedDescriptions[i].innerText =
+            shopCurrentObtainedSkill.description;
+          if (shopCurrentObtainedSkill.type == "Physical") {
+            shopSkillsObtainedStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${shopCurrentObtainedSkill.damage} <br> Szybkość ${shopCurrentObtainedSkill.speed}  Celność ${shopCurrentObtainedSkill.accuracy}`;
+          } else {
+            shopSkillsObtainedStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${shopCurrentObtainedSkill.damage}  Koszt many ${shopCurrentObtainedSkill.cost} <br> Szybkość ${shopCurrentObtainedSkill.speed}  Celność ${shopCurrentObtainedSkill.accuracy}`;
+          }
+
+          shopSkillsObtainedDivs[i].onmouseover = () => {
+            shopSkillsObtainedDivs[i].style.backgroundColor =
+              "rgb(175, 114, 114)";
+            shopSkillsObtainedDivs[i].style.cursor = "pointer";
+          };
+          shopSkillsObtainedDivs[i].onmouseout = () => {
+            shopSkillsObtainedDivs[i].style.backgroundColor = "rosybrown";
+          };
+        }
+
+        let shopPotionsIndex = [];
+        let shopPotionsRandomIndex;
+        while (shopPotionsIndex.length < 2) {
+          shopPotionsRandomIndex = Math.floor(
+            Math.random() * shopPotions.length
+          );
+          if (!shopPotionsIndex.includes(shopPotionsRandomIndex)) {
+            shopPotionsIndex.push(shopPotionsRandomIndex);
+          }
+        }
+        let shopSkillsIndex = [];
+        let shopSkillsRandomIndex;
+
+        while (shopSkillsIndex.length < 2) {
+          shopSkillsRandomIndex = Math.floor(Math.random() * shopSkills.length);
+          if (!shopSkillsIndex.includes(shopSkillsRandomIndex)) {
+            shopSkillsIndex.push(shopSkillsRandomIndex);
+          }
+        }
+
+        shopItemsNameDivs[0].innerText = shopPotions[shopPotionsIndex[0]].name;
+        shopItemsPriceDivs[0].innerText =
+          shopPotions[shopPotionsIndex[0]].price;
+        shopItemsDescriptionDivs[0].innerText =
+          shopPotions[shopPotionsIndex[0]].description;
+
+        shopItemsNameDivs[1].innerText = shopPotions[shopPotionsIndex[1]].name;
+        shopItemsPriceDivs[1].innerText =
+          shopPotions[shopPotionsIndex[1]].price;
+        shopItemsDescriptionDivs[1].innerText =
+          shopPotions[shopPotionsIndex[1]].description;
+
+        shopItemsNameDivs[2].innerText = shopSkills[shopSkillsIndex[0]].name;
+        shopItemsPriceDivs[2].innerText = shopSkills[shopSkillsIndex[0]].price;
+        shopItemsDescriptionDivs[2].innerText =
+          shopSkills[shopSkillsIndex[0]].description;
+
+        shopItemsNameDivs[3].innerText = shopSkills[shopSkillsIndex[1]].name;
+        shopItemsPriceDivs[3].innerText = shopSkills[shopSkillsIndex[1]].price;
+        shopItemsDescriptionDivs[3].innerText =
+          shopSkills[shopSkillsIndex[1]].description;
+
+        let shopCurrentIndex;
+        let shopChossenSkillIndex;
+        let shopChossenSkillPrice;
+        let shopStop = 0;
+
+        for (let i = 0; i < 4; i++) {
+          shopItemStatsDivs[i].innerHTML = ``;
+          if (i < 2) {
+            shopCurrentIndex = shopPotionsIndex[i];
+            shopItemStatsDivs[
+              i
+            ].innerHTML = `Leczy<br>${shopPotions[shopCurrentIndex].value}`;
+            if (shopPotions[shopCurrentIndex].type == "static") {
+              shopItemStatsDivs[i].innerHTML += "<br>HP";
+            } else {
+              shopItemStatsDivs[i].innerHTML += "% <br> HP";
+            }
+          } else {
+            shopCurrentIndex = shopSkillsIndex[i - 2];
+            shopItemStatsDivs[i].style.fontSize = "50%";
+            currentAbility =
+              playerAbilities[shopSkills[shopCurrentIndex].skillIndex];
+            const shopSkillNameDiv = document.createElement("div");
+            shopSkillNameDiv.style.borderBottom = "black solid 2px";
+            shopSkillNameDiv.innerHTML = `Umiejętność<br><div style="font-style: italic;">${currentAbility.name}</div>`;
+            shopItemStatsDivs[i].appendChild(shopSkillNameDiv);
+
+            if (currentAbility.type == "Magical") {
+              const shopSkillAttributeTypeDiv = document.createElement("div");
+              shopSkillAttributeTypeDiv.style.borderBottom = "black solid 2px";
+              shopSkillAttributeTypeDiv.innerHTML = "Typ<br>Magiczny";
+              shopItemStatsDivs[i].appendChild(shopSkillAttributeTypeDiv);
+
+              const shopSkillAttributeManaDiv = document.createElement("div");
+              shopSkillAttributeManaDiv.style.borderBottom = "black solid 2px";
+              shopSkillAttributeManaDiv.innerHTML = `Koszt many<br>${currentAbility.cost}`;
+              shopItemStatsDivs[i].appendChild(shopSkillAttributeManaDiv);
+            } else {
+              const shopSkillAttributeTypeDiv = document.createElement("div");
+              shopSkillAttributeTypeDiv.style.borderBottom = "black solid 2px";
+              shopSkillAttributeTypeDiv.innerHTML = "Typ<br>Fizyczny";
+              shopItemStatsDivs[i].appendChild(shopSkillAttributeTypeDiv);
+            }
+            const shopSkillAttributeDamageDiv = document.createElement("div");
+            shopSkillAttributeDamageDiv.style.borderBottom = "black solid 2px";
+            shopSkillAttributeDamageDiv.innerHTML = `Obrażenia<br>${currentAbility.damage}`;
+            shopItemStatsDivs[i].appendChild(shopSkillAttributeDamageDiv);
+
+            const shopSkillAttributeSpeedDiv = document.createElement("div");
+            shopSkillAttributeSpeedDiv.style.borderBottom = "black solid 2px";
+            shopSkillAttributeSpeedDiv.innerHTML = `Szybkość<br>${currentAbility.speed}`;
+            shopItemStatsDivs[i].appendChild(shopSkillAttributeSpeedDiv);
+
+            const shopSkillAttributeAccuracyDiv = document.createElement("div");
+            shopSkillAttributeAccuracyDiv.innerHTML = `Celność<br>${currentAbility.accuracy}`;
+            shopItemStatsDivs[i].appendChild(shopSkillAttributeAccuracyDiv);
+          }
+
+          shopItemsDivs[i].onmouseover = () => {
+            if (shopStop == 0) {
+              shopItemStatsDivs[i].classList.remove("hidden");
+              if (
+                (i < 2 && money >= shopPotions[shopPotionsIndex[i]].price) ||
+                (i >= 2 && money >= shopSkills[shopSkillsIndex[i - 2]].price)
+              ) {
+                shopItemsDivs[i].style.backgroundColor = "rgb(221, 97, 83)";
+                shopItemsDivs[i].style.cursor = "pointer";
+              } else {
+                shopItemsDivs[i].style.backgroundColor = "rgb(160, 25, 25)";
+                shopItemsDivs[i].style.cursor = "no-drop";
+              }
+            }
+          };
+
+          shopItemsDivs[i].onmouseout = () => {
+            if (shopStop == 0) {
+              shopItemStatsDivs[i].classList.add("hidden");
+              shopItemsDivs[i].style.backgroundColor = "salmon";
+            }
+          };
+
+          shopItemsDivs[i].onclick = () => {
+            if (shopStop == 0) {
+              if (i < 2 && money >= shopPotions[shopPotionsIndex[i]].price) {
+                shopPotionChossen = shopPotions[shopPotionsIndex[i]];
+                money = money - shopPotionChossen.price;
+                if (shopPotionChossen.type == "static") {
+                  player.health += shopPotionChossen.value;
+                } else {
+                  player.health +=
+                    (shopPotionChossen.value / 100) * player.maxhealth;
+                }
+                if (player.health > player.maxhealth) {
+                  player.health = player.maxhealth;
+                }
+                shopRefresh();
+              } else if (
+                i >= 2 &&
+                money >= shopSkills[shopSkillsIndex[i - 2]].price
+              ) {
+                for (let j = 0; j < 4; j++) {
+                  shopItemsDivs[j].style.cursor = "default";
+                }
+                shopStop = 1;
+
+                shopChossenSkillIndex =
+                  shopSkills[shopSkillsIndex[i - 2]].skillIndex;
+                shopChossenSkillPrice =
+                  shopSkills[shopSkillsIndex[i - 2]].price;
+
+                shopSkillsObtainedArea.classList.remove("hidden");
+                shopSkillObtainedBackground.classList.remove("hidden");
+              }
+            }
+          };
+
+          shopSkillsObtainedDivs[i].onclick = () => {
+            //liczenie czy będziesz miał 1 zdolność fizyczną
+            player.abilitiesObtained[i] =
+              playerAbilities[shopChossenSkillIndex].index;
+
+            shopStop = 0;
+            shopSkillsObtainedArea.classList.add("hidden");
+            shopSkillObtainedBackground.classList.add("hidden");
+            for (let i = 0; i < 4; i++) {
+              shopItemsDivs[i].style.backgroundColor = "salmon";
+              shopItemStatsDivs[i].classList.add("hidden");
+            }
+
+            money = money - shopChossenSkillPrice;
+            shopRefresh();
+          };
+        }
+
+        shopSkillObtainedCancel.onclick = () => {
+          shopStop = 0;
+          shopSkillsObtainedArea.classList.add("hidden");
+          shopSkillObtainedBackground.classList.add("hidden");
+          for (let i = 0; i < 4; i++) {
+            shopItemsDivs[i].style.backgroundColor = "salmon";
+            shopItemStatsDivs[i].classList.add("hidden");
+          }
+        };
+
+        shopLeaveDiv.onclick = () => {
+          mapTable.classList.remove("hidden");
+          shopBackgroundDiv.classList.add("hidden");
+          shopStop = 0;
+          shopSkillsObtainedArea.classList.add("hidden");
+          shopSkillObtainedBackground.classList.add("hidden");
+          for (let i = 0; i < 4; i++) {
+            shopItemsDivs[i].style.backgroundColor = "salmon";
+            shopItemStatsDivs[i].classList.add("hidden");
+          }
+        };
+
+        let shopName = names[Math.floor(Math.random() * names.length)];
+        shopTop.innerText = `Gospoda u ${shopName}a`;
+
+        shopPlayerName.innerText = player.name;
+
+        shopPlayerStatValueDiv[0].innerText = money;
+        shopPlayerStatValueDiv[1].innerText = `${player.health}/${player.maxhealth}`;
+        shopPlayerStatValueDiv[2].innerText = `${player.mana}/${player.maxmana}`;
+        shopPlayerStatValueDiv[3].innerText = player.power;
+        shopPlayerStatValueDiv[4].innerText = player.magicPower;
+        shopPlayerStatValueDiv[5].innerText = player.speed;
+        shopPlayerStatValueDiv[6].innerText = player.dodge;
+        shopPlayerStatValueDiv[7].innerText = player.accuracy;
+        shopPlayerStatValueDiv[8].innerText = player.luck;
+      }
+
+      function shopRefresh() {
+        shopPlayerStatValueDiv[0].innerText = money;
+        shopPlayerStatValueDiv[1].innerText = `${player.health}/${player.maxhealth}`;
+
+        for (let i = 0; i < 4; i++) {
+          shopCurrentObtainedSkill =
+            playerAbilities[player.abilitiesObtained[i]];
+
+          shopSkillsObtainedTitles[i].innerText = shopCurrentObtainedSkill.name;
+          shopSkillsObtainedDescriptions[i].innerText =
+            shopCurrentObtainedSkill.description;
+          if (shopCurrentObtainedSkill.type == "Physical") {
+            shopSkillsObtainedStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${shopCurrentObtainedSkill.damage} <br> Szybkość ${shopCurrentObtainedSkill.speed}  Celność ${shopCurrentObtainedSkill.accuracy}`;
+          } else {
+            shopSkillsObtainedStats[
+              i
+            ].innerHTML = `Obrażenia podst. ${shopCurrentObtainedSkill.damage}  Koszt many ${shopCurrentObtainedSkill.cost} <br> Szybkość ${shopCurrentObtainedSkill.speed}  Celność ${shopCurrentObtainedSkill.accuracy}`;
+          }
+        }
+      }
+      //pomiędzy walkami chodzisz po mapie która ma parę ścieżek z różnymi zdarzeniami (walka z przeciwnikiem, walka z bossem, skarb, sklep(kupno przedmiotów dających nowe zdolności oraz wyzwania), siłownie, biblioteki), ogólny podgląd
+      //za walkę dostaje się kasę, kasę wydaje się w siłowniach(siła,uniki,wytrzymałość,celność) bibliotekach(wiedza,moc umiejętności) sklepach(umiejętności,przedmioty) etc
+      //hp możesz leczyć wszędzie ale w różnych miejscach inna cena
+      //atrybuty przeciwników, gruby pies, chudy itp
+    </script>
+  </body>
+</html>
