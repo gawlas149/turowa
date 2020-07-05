@@ -6,8 +6,21 @@
         margin: 0;
         user-select: none;
       }
+
       body {
         overflow: hidden;
+      }
+      body::after {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        z-index: -1;
+        content: url(players/0.png) url(players/1.png) url(players/2.png)
+          url(players/arrow.png) url(icons/bitwa.png) url(maps/paper.png)
+          url(maps/background.png) url(enemies/drwal.gif)
+          url(enemies/pajajajonk.png) url(enemies/koza.png)
+          url(enemies/menel.png) url(enemies/konduktor.png);
       }
       .hidden {
         display: none !important;
@@ -213,6 +226,7 @@
         width: 20vw;
         height: 60vh;
         left: 31vw;
+        top: 15vh;
         background-color: rosybrown;
         border: black solid 2px;
         border-radius: 1vw;
@@ -242,13 +256,15 @@
       #mapTable {
         width: 100vw;
         height: 100vh;
-        background-color: rgb(168, 121, 73);
+        /* background-color: rgb(168, 121, 73); */
+        background-image: url("maps/background.png");
       }
       #mapMap {
         position: relative;
         width: 40%;
         height: 80%;
-        background-color: rgb(193, 154, 107);
+        /* background-color: rgb(193, 154, 107); */
+        background-image: url("maps/paper.png ");
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -268,7 +284,6 @@
         transform: translateY(10%);
         font-size: 7vh;
         text-align: center;
-        /* border: black solid 2px; */
       }
       .mapRoadsImg {
         width: 100%;
@@ -297,15 +312,15 @@
         background-color: rgb(62, 77, 62);
         border: black solid 2px;
       }
-      .mapBattleIcon {
-        width: 95%;
-        height: 95%;
-        transform: translate(-1%, 5%);
+      .mapBattle {
+        background-image: url("icons/bitwa.png ");
+        background-size: 98% 98%;
+        background-repeat: no-repeat;
+        background-position: 5% 150%;
       }
       .enemyImage {
-        width: 40%;
-        height: 60%;
-        transform: translate(100%, 50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
       }
       .enemyNoImage {
         width: 20%;
@@ -520,6 +535,344 @@
         background-color: rgb(168, 30, 30);
         z-index: 5;
       }
+      #chooseAttributeContainer {
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        background-color: aliceblue;
+        width: 25%;
+        height: 40%;
+        transform: translateX(-50%);
+        border-radius: 5%;
+        border: black solid 3px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      #chooseAttributeTop {
+        text-align: center;
+        width: 100%;
+        font-size: 2vw;
+        flex: 1;
+        border-bottom: black solid 2px;
+      }
+      .chooseAttributeAction {
+        text-align: center;
+        width: 100%;
+        font-size: 2.5vw;
+        flex: 2;
+        border-bottom: black solid 2px;
+      }
+      .chooseAttributeAction:hover {
+        background-color: rgb(193, 203, 212);
+        cursor: pointer;
+      }
+      #gymPlayer {
+        flex: 5;
+        background-color: salmon;
+        border-bottom: black solid 2px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      #gymPlayerWaste {
+        flex: 1;
+      }
+      #gymPlayerName {
+        font-size: 2vw;
+        flex: 1.5;
+        text-align: center;
+      }
+      #gymPlayerStats {
+        flex: 16;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2vw;
+      }
+      .gymPlayerStat {
+        flex: 1;
+      }
+      .gymPlayerStatValue {
+        flex: 1;
+      }
+      .gymPlayerStatContainer {
+        flex: 1;
+        border-bottom: black solid 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      #gymBackground {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(192, 91, 79);
+      }
+      #gymTop {
+        flex: 1;
+        width: 100vw;
+        background-color: rgb(123, 81, 163);
+        text-align: center;
+        font-size: 5vw;
+        border-bottom: black solid 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #gymMain {
+        flex: 6;
+        display: flex;
+      }
+      .gymMainWaste {
+        flex: 1;
+      }
+      #gymMainCenter {
+        flex: 8;
+        display: flex;
+        flex-direction: column;
+      }
+      .gymMainCenterWaste {
+        flex: 1;
+        display: flex;
+        font-size: 2vw;
+        text-align: center;
+      }
+      #gymItems {
+        flex: 20;
+        background-color: salmon;
+        display: flex;
+        flex-direction: column;
+      }
+      .gymItem {
+        flex: 1;
+        border: black solid 2px;
+        border-bottom: 0;
+        display: flex;
+        text-align: center;
+        font-size: 3vw;
+      }
+      .gymItemNameContainer {
+        flex: 4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .gymItemPriceContainer {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .gymItemDescriptionContainer {
+        flex: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #gymInfoName {
+        align-self: flex-end;
+        flex: 4;
+      }
+      #gymInfoPrice {
+        align-self: flex-end;
+        flex: 1;
+      }
+      #gymInfoDescription {
+        align-self: flex-end;
+        flex: 5;
+      }
+      .gymItemStats {
+        position: absolute;
+        left: 80%;
+        width: 14vw;
+        margin-left: 1vw;
+        background-color: gray;
+        border: black solid 2px;
+        border-radius: 10%;
+        overflow: hidden;
+        z-index: 2;
+      }
+      #gymLeave {
+        position: relative;
+        left: 70%;
+        top: 50%;
+        width: 30%;
+        height: 50%;
+        background-color: rgb(138, 38, 38);
+        border: black solid 2px;
+      }
+      #gymLeave:hover {
+        cursor: pointer;
+        background-color: rgb(168, 30, 30);
+        z-index: 5;
+      }
+      .gymItem {
+        flex: 1;
+        border: black solid 2px;
+        border-bottom: 0;
+        display: flex;
+        text-align: center;
+        font-size: 3vw;
+      }
+      .gymItemNameContainer {
+        flex: 4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .gymItemPriceContainer {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: black solid 2px;
+      }
+      .gymItemDescriptionContainer {
+        flex: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #skinChoose {
+        position: absolute;
+        width: 50vh;
+        height: 50vh;
+        left: 50vh;
+        background-color: rgb(126, 126, 126);
+        top: 18vh;
+        border: black solid 2px;
+      }
+      #skinPlayer {
+        position: relative;
+        width: 100%;
+        height: 90%;
+        background-size: 90% 90%;
+        background-repeat: no-repeat;
+        transform: translate(5%, 5%);
+      }
+      #skinArrowLeft {
+        position: absolute;
+        background-image: url("./players/arrow.png ");
+        background-color: rgb(151, 114, 66);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        border-radius: 25%;
+        width: 11%;
+        height: 9%;
+        left: 5%;
+        top: 89%;
+        border: black 2px solid;
+      }
+      #skinArrowRight {
+        position: absolute;
+        background-image: url("./players/arrow.png ");
+        background-color: rgb(151, 114, 66);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        border-radius: 25%;
+        width: 11%;
+        height: 9%;
+        left: 83%;
+        top: 89%;
+        border: black 2px solid;
+        transform: rotateZ(180deg);
+      }
+      #endScreen {
+        height: 700vh;
+        position: absolute;
+        width: 100%;
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+      }
+      @keyframes endTextsGo {
+        0% {
+          opacity: 0%;
+          top: 0%;
+        }
+        10% {
+          top: 0%;
+          opacity: 100%;
+        }
+        50% {
+          background-color: black;
+        }
+        100% {
+          top: -600%;
+          background-color: pink;
+        }
+      }
+      #endHead {
+        line-height: 220vh;
+        font-size: 20vh;
+        text-align: center;
+        flex: 100;
+      }
+      .endInfo {
+        font-size: 10vh;
+        text-align: center;
+        flex: 80;
+      }
+      .endPerson {
+        font-size: 8vh;
+        text-align: center;
+        flex: 10;
+      }
+      .endThanks {
+        font-size: 8vh;
+        text-align: center;
+        flex: 10;
+      }
+      #endWaste {
+        flex: 100;
+      }
+      #endHeheContainer {
+        flex: 1;
+        font-size: 4vh;
+        text-align: right;
+        color: black;
+        display: flex;
+        justify-content: flex-end;
+      }
+      #tooltipButton {
+        position: absolute;
+        font-size: 5vh;
+        left: 80vw;
+        top: 85vh;
+        width: 22vh;
+        height: 12vh;
+        background-color: rgb(61, 61, 61);
+        border: 3px solid black;
+        text-align: center;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #tooltipText {
+        visibility: hidden;
+        position: absolute;
+        background-color: black;
+        border-radius: 6px;
+        z-index: 1;
+        color: white;
+        top: -80vh;
+        left: -20vw;
+        width: 30vw;
+        font-size: 4vh;
+        text-align: left;
+        text-align: center;
+      }
+      #tooltipButton:hover #tooltiptext {
+        visibility: visible;
+      }
     </style>
     <meta
       name="viewport"
@@ -529,7 +882,9 @@
   <body>
     <div id="startField" class="">
       <div id="startStage">
-        <div style="font-size: 7vh;">Stwórz postać</div>
+        <div style="font-size: 8vh; left: 50%; position: relative;">
+          Stwórz postać
+        </div>
         <div style="font-size: 3vh;">Imię:</div>
         <input value="Czesław" id="nameField" maxlength="15" />
 
@@ -584,9 +939,28 @@
         </div>
         <div id="poolPoints">
           Pula:
-          <div id="poolPointsValue">95</div>
+          <div id="poolPointsValue"></div>
         </div>
         <div id="startAcceptButton">Zatwierdź</div>
+        <div id="skinChoose">
+          <div id="skinPlayer"></div>
+          <div id="skinArrowLeft"></div>
+          <div id="skinArrowRight"></div>
+        </div>
+        <div id="tooltipButton">
+          <div id="tooltipButtonText">Jak grać?</div>
+          <span id="tooltipText"
+            >Głównym elementem gry jest walka, wpływa na nią wiele czynników.<br />
+            Na przykład podczas walki na górze znajduje się oś czasu, na niej są
+            znaczniki gracza, przeciwnika i wyboru ataku. <br />
+            Przed wyborem ataku szybkość zależy od szybkości postaci
+            <br />(atrybut "Zwinność"), <br />
+            a po wyborze ataku szybkość zależy od szybkości ataku.<br />
+            Celem gry jest przejście przez dwa światy i pokonanie ostatniego
+            przeciwnika.<br />
+            Powodzenia :)</span
+          >
+        </div>
       </div>
     </div>
     <div id="fightStage" class="hidden">
@@ -606,13 +980,13 @@
           <div
             id="player"
             style="
-              width: 20%;
-              height: 30%;
-              background-color: blue;
-              border: black solid 2px;
+              width: 50%;
+              height: 50%;
+              background-size: 100% 100%;
+              background-repeat: no-repeat;
               position: relative;
-              left: 40%;
-              top: 40%;
+              left: 10%;
+              top: 30%;
             "
           ></div>
           <div id="fightSkillsArea" class="hidden">
@@ -653,6 +1027,12 @@
         </div>
         <div class="battleFieldPart">
           <div id="enemy" class="enemyNoImage"></div>
+        </div>
+        <div id="chooseAttributeContainer" class="hidden">
+          <div id="chooseAttributeTop">Rozwiń zdolność :)</div>
+          <div class="chooseAttributeAction"></div>
+          <div class="chooseAttributeAction"></div>
+          <div class="chooseAttributeAction" style="border: none;"></div>
         </div>
       </div>
       <div id="bottomBar">
@@ -950,6 +1330,167 @@
         </div>
       </div>
     </div>
+    <div id="gymBackground" class="hidden">
+      <div id="gymTop"></div>
+      <div id="gymMain">
+        <div
+          style="display: flex; flex-direction: column;"
+          class="gymMainWaste"
+        >
+          <div id="gymPlayer">
+            <div id="gymPlayerName">Stefan</div>
+            <div id="gymPlayerStats">
+              <div
+                style="border-top: black solid 2px;"
+                class="gymPlayerStatContainer"
+              >
+                <div class="gymPlayerStat">Pieniążki</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Punkty życia</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Punkty many</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Siła</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Moc magiczna</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Szybkość</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Szansa na unik</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Celność</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+              <div style="border-bottom: none;" class="gymPlayerStatContainer">
+                <div class="gymPlayerStat">Szczęście</div>
+                <div class="gymPlayerStatValue"></div>
+              </div>
+            </div>
+          </div>
+          <div id="gymPlayerWaste"></div>
+        </div>
+        <div id="gymMainCenter">
+          <div
+            style="
+              border-left: black solid 2px;
+              border-right: black solid 2px;
+              background-color: cadetblue;
+            "
+            class="gymMainCenterWaste"
+          >
+            <div id="gymInfoName">Nazwa:</div>
+            <div id="gymInfoPrice">Cena:</div>
+            <div id="gymInfoDescription">Opis:</div>
+          </div>
+          <div id="gymItems">
+            <div class="gymItem">
+              <div class="gymItemNameContainer">
+                <div class="gymItemName"></div>
+              </div>
+              <div class="gymItemPriceContainer">
+                <div class="gymItemPrice"></div>
+              </div>
+              <div class="gymItemDescriptionContainer">
+                <div class="gymItemDescripton"></div>
+              </div>
+            </div>
+            <div class="gymItem">
+              <div class="gymItemNameContainer">
+                <div class="gymItemName"></div>
+              </div>
+              <div class="gymItemPriceContainer">
+                <div class="gymItemPrice"></div>
+              </div>
+              <div class="gymItemDescriptionContainer">
+                <div class="gymItemDescripton"></div>
+              </div>
+            </div>
+            <div class="gymItem">
+              <div class="gymItemNameContainer">
+                <div class="gymItemName"></div>
+              </div>
+              <div class="gymItemPriceContainer">
+                <div class="gymItemPrice"></div>
+              </div>
+              <div class="gymItemDescriptionContainer">
+                <div class="gymItemDescripton"></div>
+              </div>
+            </div>
+            <div class="gymItem">
+              <div class="gymItemNameContainer">
+                <div class="gymItemName"></div>
+              </div>
+              <div class="gymItemPriceContainer">
+                <div class="gymItemPrice"></div>
+              </div>
+              <div class="gymItemDescriptionContainer">
+                <div class="gymItemDescripton"></div>
+              </div>
+            </div>
+            <div class="gymItem" style="border-bottom: 2px solid black;">
+              <div class="gymItemNameContainer">
+                <div class="gymItemName"></div>
+              </div>
+              <div class="gymItemPriceContainer">
+                <div class="gymItemPrice"></div>
+              </div>
+              <div class="gymItemDescriptionContainer">
+                <div class="gymItemDescripton"></div>
+              </div>
+            </div>
+          </div>
+          <div style="flex: 3;" class="gymMainCenterWaste">
+            <div id="gymLeave">Wyjdź</div>
+          </div>
+        </div>
+        <div class="gymMainWaste"></div>
+      </div>
+    </div>
+    <div id="endScreen" class="hidden">
+      <div id="endHead">Wygrałeś!</div>
+      <div class="endInfo">
+        ...lub wygrałaś, <br />jeśli nie przepadasz za testosteronem. 🚺
+      </div>
+      <div class="endInfo">Możesz sobie pogratulować czy coś :)</div>
+      <div class="endInfo">
+        Grę stworzył Filip Gawlas<br />wraz z pomocą przyjaciół
+      </div>
+      <div class="endThanks">
+        Szczególne podziękowania dla:
+      </div>
+      <div class="endPerson">
+        Konrad Franek
+      </div>
+      <div class="endPerson">Krzysiu Franek</div>
+      <div class="endPerson">Kuba Gawlas</div>
+      <div class="endPerson">Kuba Głuszek</div>
+      <div class="endPerson">Bartek Haratyk</div>
+      <div class="endPerson">Seweryn Kukuczka</div>
+      <div class="endPerson">Emilka Niemczyk</div>
+      <div class="endPerson">Janek Palmen</div>
+      <div class="endPerson">Hubert Przychodzeń</div>
+      <div class="endPerson">Marcin Ryt</div>
+      <div class="endPerson">Ania Stokłosa</div>
+      <div class="endPerson">Konrad Wołoszyn</div>
+      <div class="endPerson">Damian Żerdka</div>
+      <div class="endPerson">I Ciebie ❤</div>
+      <div id="endWaste"></div>
+      <div id="endHeheContainer"><div id="endHehe">Hehe</div></div>
+    </div>
     <script>
       const playerNameDiv = document.getElementById("playerName");
       const enemyNameDiv = document.getElementById("enemyName");
@@ -964,7 +1505,6 @@
       );
       let attributeValue = [];
       const poolPointsDiv = document.getElementById("poolPointsValue");
-      let poolPointsValue = Math.floor(poolPointsDiv.innerText);
       const playerStatsDiv = document.getElementById("playerStats");
       const playerStatsValue = document.getElementsByClassName(
         "playerStatValue"
@@ -992,7 +1532,6 @@
 
       const enemyDiv = document.getElementById("enemy");
 
-      //rangi zdolności
       const playerAbilities = [
         //gracz
         {
@@ -1061,7 +1600,7 @@
           type: "Physical",
           speed: 120,
           cost: 0,
-          damage: 80,
+          damage: 55,
           accuracy: 50,
           index: 6,
         },
@@ -1107,6 +1646,10 @@
         },
       ];
 
+      if (window.orientation == 0) {
+        alert("Obróć ekran głąbie");
+      }
+
       //tworzenie postaci
       let money = 30;
       let player = {
@@ -1121,10 +1664,18 @@
         accuracy: 80,
         luck: 10,
         speed: 110,
-        // shield: 0,
-        // block: 0,
         abilitiesObtained: [0, 1, 2, 3],
       };
+
+      let attributeMaxHealth;
+      let attributePower;
+      let attributeMaxMana;
+      let attributeMagicPower;
+      let attributeSpeed;
+      let attributeDodge;
+      let attributeAccuracy;
+      let attributeLuck;
+      let poolPointsValue = 100;
 
       for (let i = 0; i < buttonsPlus.length; i++) {
         attributeValue[i] = Math.floor(attributeValueDivs[i].innerText);
@@ -1132,7 +1683,7 @@
         poolPointsValue -= attributeValue[i];
 
         buttonsPlus[i].onclick = () => {
-          if (poolPointsValue == 0 || attributeValue[i] == 30) {
+          if (poolPointsValue == 0 || attributeValue[i] == 25) {
           } else {
             attributeValue[i] += 1;
             attributeValueDivs[i].innerText =
@@ -1142,7 +1693,7 @@
             poolPointsDiv.innerText = poolPointsValue;
           }
 
-          if (attributeValue[i] == 30) {
+          if (attributeValue[i] == 25) {
             attributeValueDivs[i].style.color = "green";
           }
 
@@ -1171,31 +1722,80 @@
       }
       poolPointsDiv.innerText = poolPointsValue;
 
+      const skinArrowLeft = document.getElementById("skinArrowLeft");
+      const skinArrowRight = document.getElementById("skinArrowRight");
+      const skinPlayer = document.getElementById("skinPlayer");
+      const skinsPlayer = [0, 1, 2];
+      const playerSkin = document.getElementById("player");
+      let skinCurrent = Math.floor(Math.random() * skinsPlayer.length);
+      skinPlayer.style.backgroundImage = `url("players/${skinCurrent}.png ")`;
+
+      skinArrowLeft.onclick = () => {
+        if (skinCurrent > 0) {
+          skinCurrent -= 1;
+          skinPlayer.style.backgroundImage = `url("players/${skinCurrent}.png")`;
+        } else {
+          skinCurrent = skinsPlayer.length - 1;
+          skinPlayer.style.backgroundImage = `url("players/${skinCurrent}.png")`;
+        }
+      };
+      skinArrowRight.onclick = () => {
+        if (skinCurrent < skinsPlayer.length - 1) {
+          skinCurrent += 1;
+          skinPlayer.style.backgroundImage = `url("players/${skinCurrent}.png")`;
+        } else {
+          skinCurrent = 0;
+          skinPlayer.style.backgroundImage = `url("players/${skinCurrent}.png")`;
+        }
+      };
+      skinArrowLeft.onmouseover = () => {
+        skinArrowLeft.style.backgroundColor = "rgb(119, 90, 51)";
+      };
+      skinArrowLeft.onmouseout = () => {
+        skinArrowLeft.style.backgroundColor = "rgb(151, 114, 66)";
+      };
+      skinArrowRight.onmouseover = () => {
+        skinArrowRight.style.backgroundColor = "rgb(119, 90, 51)";
+      };
+      skinArrowRight.onmouseout = () => {
+        skinArrowRight.style.backgroundColor = "rgb(151, 114, 66)";
+      };
+
       startAcceptButton.onclick = () => {
+        playerSkin.style.backgroundImage = `url('./players/${skinCurrent}.png')`;
+
         if (nameField.value.replace(/\s/g, "").length) {
           player.name = nameField.value;
         }
-        player.health = attributeValue[0] * 8 + 100;
-        player.maxhealth = player.health;
-        player.power = attributeValue[1];
-        player.mana = attributeValue[2] * 8;
-        player.maxmana = player.mana;
-        player.magicPower = attributeValue[3];
-        player.speed = attributeValue[4] + 100;
-        player.dodge = attributeValue[5] - 5;
-        player.accuracy = attributeValue[6] + 70;
-        player.luck = attributeValue[7];
+        attributeMaxHealth = attributeValue[0];
+        attributePower = attributeValue[1];
+        attributeMaxMana = attributeValue[2];
+        attributeMagicPower = attributeValue[3];
+        attributeSpeed = attributeValue[4];
+        attributeDodge = attributeValue[5];
+        attributeAccuracy = attributeValue[6];
+        attributeLuck = attributeValue[7];
+        calculatePlayerStats();
 
+        player.health = player.maxhealth;
+        player.mana = player.maxmana;
         startField.classList.add("hidden");
 
         playerNameDiv.innerText = player.name;
 
         mapTable.classList.remove("hidden");
-
-        if (window.orientation == 0) {
-          alert("Obróć ekran głąbie");
-        }
       };
+
+      function calculatePlayerStats() {
+        player.maxhealth = attributeMaxHealth * 8 + 80;
+        player.power = attributePower;
+        player.maxmana = attributeMaxMana * 8;
+        player.magicPower = attributeMagicPower;
+        player.speed = attributeSpeed * 2 + 80;
+        player.dodge = attributeDodge - 3;
+        player.accuracy = attributeAccuracy * 2 + 55;
+        player.luck = attributeLuck;
+      }
 
       //przygotowanie sceny walki
       playerNameDiv.onmouseover = () => {
@@ -1214,32 +1814,45 @@
         playerStatsDiv.classList.add("hidden");
       };
 
+      let mouseOverPlayerMp = 0;
+      let mouseOverPlayerHp = 0;
+      let mouseOverEnemyHp = 0;
+      let mouseOverEnemyMp = 0;
+
       containers[0].onmouseover = () => {
         containers[0].innerText = `${player.mana}/${player.maxmana}`;
+        mouseOverPlayerMp = 1;
       };
       containers[0].onmouseout = () => {
         containers[0].innerText = "";
+        mouseOverPlayerMp = 0;
       };
 
       containers[1].onmouseover = () => {
         containers[1].innerText = `${player.health}/${player.maxhealth}`;
+        mouseOverPlayerHp = 1;
       };
       containers[1].onmouseout = () => {
         containers[1].innerText = "";
+        mouseOverPlayerHp = 0;
       };
 
       containers[2].onmouseover = () => {
         containers[2].innerText = `${enemy.health}/${enemy.maxhealth}`;
+        mouseOverEnemyHp = 1;
       };
       containers[2].onmouseout = () => {
         containers[2].innerText = "";
+        mouseOverEnemyHp = 0;
       };
 
       containers[3].onmouseover = () => {
         containers[3].innerText = `${enemy.mana}/${enemy.maxmana}`;
+        mouseOverEnemyMp = 1;
       };
       containers[3].onmouseout = () => {
         containers[3].innerText = "";
+        mouseOverEnemyMp = 0;
       };
 
       //przygotowanie skilli gracza
@@ -1252,11 +1865,11 @@
           if (currentSkill.type == "Physical") {
             fightSkillStats[
               i
-            ].innerHTML = `Obrażenia podst. ${currentSkill.damage} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
+            ].innerHTML = `Obrażenia ${currentSkill.damage} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
           } else {
             fightSkillStats[
               i
-            ].innerHTML = `Obrażenia podst. ${currentSkill.damage}  Koszt many ${currentSkill.cost} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
+            ].innerHTML = `Obrażenia ${currentSkill.damage}  Koszt many ${currentSkill.cost} <br> Szybkość ${currentSkill.speed}  Celność ${currentSkill.accuracy}`;
           }
 
           fightSkillDivs[i].onmouseover = () => {
@@ -1290,8 +1903,7 @@
           };
         }
       }
-
-      //przeciwnicy
+      //dodać ania emilia, poprawić Kubuś
       const names = [
         "Kubuś",
         "Filip",
@@ -1304,7 +1916,8 @@
         "Tomasz",
       ];
       const menelName = names[Math.floor(Math.random() * names.length)];
-
+      //przeciwnicy
+      //dodać(łączy się z enemyAbilites)
       const enemies = [
         [
           //Tier0
@@ -1314,12 +1927,12 @@
             health: 70,
             maxmana: 30,
             mana: 30,
-            power: 5,
-            magicPower: 5,
-            dodge: 15,
+            power: 0,
+            magicPower: 0,
+            dodge: 5,
             accuracy: 90,
             luck: 10,
-            speed: 145,
+            speed: 125,
           },
           {
             name: "Gołąb",
@@ -1328,11 +1941,11 @@
             maxmana: 100,
             mana: 100,
             power: 5,
-            magicPower: 15,
-            dodge: 40,
+            magicPower: 10,
+            dodge: 15,
             accuracy: 100,
             luck: 5,
-            speed: 200,
+            speed: 180,
           },
           {
             name: "13-latek",
@@ -1342,7 +1955,7 @@
             mana: 50,
             power: 5,
             magicPower: 5,
-            dodge: 20,
+            dodge: 8,
             accuracy: 80,
             luck: 75,
             speed: 120,
@@ -1355,10 +1968,27 @@
             mana: 40,
             power: 5,
             magicPower: 10,
-            dodge: 15,
+            dodge: 10,
             accuracy: 90,
-            luck: 10,
+            luck: 5,
             speed: 110,
+            image: "pajajajonk.png",
+            size: 20,
+            translateX: 200,
+            translateY: 260,
+          },
+          {
+            name: "Mewa (nie)różowa",
+            maxhealth: 70,
+            health: 70,
+            maxmana: 50,
+            mana: 50,
+            power: 10,
+            magicPower: 5,
+            dodge: 10,
+            accuracy: 70,
+            luck: 7,
+            speed: 125,
           },
         ],
         [
@@ -1371,24 +2001,27 @@
             mana: 420,
             power: 0,
             magicPower: 15,
-            dodge: 10,
+            dodge: 5,
             accuracy: 80,
-            luck: 10,
-            speed: 105,
+            luck: 0,
+            speed: 85,
           },
           {
             name: "Konduktor",
             maxhealth: 150,
             health: 150,
-            maxmana: 180,
-            mana: 180,
+            maxmana: 60,
+            mana: 60,
             power: 10,
             magicPower: 15,
             dodge: 5,
             accuracy: 80,
-            luck: 10,
-            speed: 100,
+            luck: 5,
+            speed: 95,
             image: "konduktor.png",
+            size: 50,
+            translateX: 50,
+            translateY: 50,
           },
           {
             name: "Drwal Andrzej",
@@ -1398,10 +2031,14 @@
             mana: 200,
             power: 5,
             magicPower: 15,
-            dodge: 10,
+            dodge: 5,
             accuracy: 80,
-            luck: 30,
+            luck: 10,
             speed: 105,
+            image: "drwal.gif",
+            size: 50,
+            translateX: 50,
+            translateY: 50,
           },
           {
             name: "Karłowaty gigant",
@@ -1409,16 +2046,16 @@
             health: 170,
             maxmana: 20,
             mana: 20,
-            power: 15,
+            power: 5,
             magicPower: 5,
             dodge: 10,
             accuracy: 70,
-            luck: 10,
+            luck: 7,
             speed: 90,
           },
         ],
         [
-          //tier2 (narazie boss)
+          //tier2 (boss)
           {
             name: `Menel ${menelName}`,
             maxhealth: 280,
@@ -1429,11 +2066,117 @@
             magicPower: 10,
             dodge: 5,
             accuracy: 90,
-            luck: 10,
+            luck: 5,
+            speed: 80,
+            image: "menel.png",
+            size: 40,
+            translateX: 80,
+            translateY: 80,
+          },
+        ],
+        [
+          //tier3 (świat 2)
+          {
+            name: "Koza syrenogłowa",
+            maxhealth: 160,
+            health: 160,
+            maxmana: 40,
+            mana: 40,
+            power: 15,
+            magicPower: 5,
+            dodge: 5,
+            accuracy: 80,
+            luck: 7,
+            speed: 90,
+            image: "koza.png",
+            size: 40,
+            translateX: 70,
+            translateY: 90,
+          },
+          {
+            name: "Czarodziejski królik",
+            maxhealth: 140,
+            health: 140,
+            maxmana: 80,
+            mana: 80,
+            power: 10,
+            magicPower: 10,
+            dodge: 5,
+            accuracy: 75,
+            luck: 7,
+            speed: 110,
+          },
+          {
+            name: "Nietoperzoczłek",
+            maxhealth: 200,
+            health: 200,
+            maxmana: 50,
+            mana: 50,
+            power: 10,
+            magicPower: 10,
+            dodge: 8,
+            accuracy: 90,
+            luck: 7,
+            speed: 110,
+          },
+          {
+            name: "Świnoczłek",
+            maxhealth: 240,
+            health: 240,
+            maxmana: 149,
+            mana: 0,
+            power: 10,
+            magicPower: 10,
+            dodge: 3,
+            accuracy: 90,
+            luck: 7,
+            speed: 80,
+          },
+          {
+            name: "Szkielet na pająku",
+            maxhealth: 170,
+            health: 170,
+            maxmana: 50,
+            mana: 50,
+            power: 10,
+            magicPower: 10,
+            dodge: 3,
+            accuracy: 90,
+            luck: 7,
+            speed: 100,
+          },
+          {
+            name: "Ślimak z karabinem",
+            maxhealth: 140,
+            health: 140,
+            maxmana: 50,
+            mana: 50,
+            power: 10,
+            magicPower: 10,
+            dodge: 3,
+            accuracy: 90,
+            luck: 7,
+            speed: 60,
+          },
+        ],
+        [
+          //tier3 (świat 2)
+          {
+            name: "Hydra",
+            maxhealth: 500,
+            health: 500,
+            maxmana: 100,
+            mana: 100,
+            power: 15,
+            magicPower: 15,
+            dodge: 5,
+            accuracy: 80,
+            luck: 4,
             speed: 80,
           },
         ],
       ];
+      //dodać (łączy się z enemies)
       const enemyAbilities = [
         [
           //tier0
@@ -1461,9 +2204,9 @@
             {
               name: "Wygruchanie",
               type: "Physical",
-              speed: 200, //standard 75
+              speed: 200,
               cost: 0,
-              damage: 5, //standard 50
+              damage: 5,
               accuracy: 80,
             },
             {
@@ -1480,9 +2223,9 @@
             {
               name: "Płacz",
               type: "Magical",
-              speed: 100, //standard 75
+              speed: 100,
               cost: 30,
-              damage: 25, //standard 50
+              damage: 20,
               accuracy: 90,
             },
             {
@@ -1490,7 +2233,7 @@
               type: "Physical",
               speed: 150,
               cost: 0,
-              damage: 20,
+              damage: 15,
               accuracy: 75,
             },
             {
@@ -1498,7 +2241,7 @@
               type: "Magical",
               speed: 50,
               cost: 15,
-              damage: 50,
+              damage: 30,
               accuracy: 70,
             },
           ],
@@ -1517,8 +2260,27 @@
               type: "Magical",
               speed: 90,
               cost: 10,
+              damage: 15,
+              accuracy: 80,
+            },
+          ],
+          [
+            //mewa
+            {
+              name: "Otumaniający skrzek",
+              type: "Magical",
+              speed: 150,
+              cost: 20,
               damage: 20,
               accuracy: 80,
+            },
+            {
+              name: "Wydziobanie oczu",
+              type: "Physical",
+              speed: 120,
+              cost: 0,
+              damage: 15,
+              accuracy: 90,
             },
           ],
         ],
@@ -1543,6 +2305,14 @@
               accuracy: 50,
             },
             {
+              name: "Zasada ekwipartycji energii",
+              type: "Magical",
+              speed: 50,
+              cost: 40,
+              damage: 54,
+              accuracy: 50,
+            },
+            {
               name: "Równanie stanu gazu doskonałego",
               type: "Magical",
               speed: 50,
@@ -1552,14 +2322,6 @@
             },
             {
               name: "Nierekurencyjne zakupy międzyplanetarne",
-              type: "Magical",
-              speed: 50,
-              cost: 40,
-              damage: 54,
-              accuracy: 50,
-            },
-            {
-              name: "Legitymizacja karła",
               type: "Magical",
               speed: 50,
               cost: 40,
@@ -1580,9 +2342,9 @@
             {
               name: "Pięścią w twarz",
               type: "Physical",
-              speed: 150, //standard 75
+              speed: 150,
               cost: 0,
-              damage: 30, //standard 50
+              damage: 30,
               accuracy: 80, //sumujemy celność postaci i celnośc zdolności, dzielimy przez dwa i mamy szansę na trafienie
             },
             {
@@ -1607,9 +2369,9 @@
             {
               name: "Szał siekier",
               type: "Physical",
-              speed: 70, //standard 75
+              speed: 70,
               cost: 0,
-              damage: 20, //standard 50
+              damage: 20,
               accuracy: 50,
             },
             {
@@ -1626,9 +2388,9 @@
             {
               name: "Uderzenie karłowatą maczugą",
               type: "Physical",
-              speed: 80, //standard 75
+              speed: 80,
               cost: 0,
-              damage: 50, //standard 50
+              damage: 50,
               accuracy: 70,
             },
             {
@@ -1642,23 +2404,23 @@
             {
               name: "Karłowatą pięścią w normalną twarz",
               type: "Physical",
-              speed: 150, //standard 75
+              speed: 150,
               cost: 0,
-              damage: 30, //standard 50
-              accuracy: 80, //sumujemy celność postaci i celnośc zdolności, dzielimy przez dwa i mamy szansę na trafienie
+              damage: 30,
+              accuracy: 80,
             },
           ],
         ],
         [
-          //tier2
+          //tier2 boss
           [
             //menel
             {
               name: "Atak tulipanem",
               type: "Magical",
-              speed: 75, //standard 75
+              speed: 75,
               cost: 30,
-              damage: 35, //standard 50
+              damage: 35,
               accuracy: 75,
             },
             {
@@ -1672,9 +2434,190 @@
             {
               name: "Spanie pod ławką",
               type: "Magical",
-              speed: 30, //standard 75
+              speed: 30,
               cost: 80,
-              damage: 0, //standard 50
+              damage: 0,
+              accuracy: 200,
+              special: "heal",
+              specialValue: 200,
+            },
+          ],
+        ],
+        [
+          //tier3 świat 2
+          [
+            //koza syrenogłowa
+            {
+              name: "Wezwanie straży pożarnej",
+              type: "Magical",
+              speed: 65,
+              cost: 35,
+              damage: 40,
+              accuracy: 80,
+            },
+            {
+              name: "Smród wełny",
+              type: "Magical",
+              speed: 130,
+              cost: 5,
+              damage: 20,
+              accuracy: 80,
+            },
+            {
+              name: "Antena w krocze",
+              type: "Physical",
+              speed: 105,
+              cost: 0,
+              damage: 35,
+              accuracy: 90,
+            },
+          ],
+          [
+            //czarodziejski królik
+            {
+              name: "Wyciąganie człowieka z kapelusza",
+              type: "Magical",
+              speed: 80,
+              cost: 45,
+              damage: 45,
+              accuracy: 85,
+            },
+            {
+              name: "Uderzenie pałką",
+              type: "Physical",
+              speed: 130,
+              cost: 0,
+              damage: 10,
+              accuracy: 100,
+            },
+            {
+              name: "Pokazanie ass'a",
+              type: "Magical",
+              speed: 105,
+              cost: 30,
+              damage: 35,
+              accuracy: 90,
+            },
+          ],
+          [
+            //nietoperzoczłek
+            {
+              name: "Rzut guanem",
+              type: "Magical",
+              speed: 150,
+              cost: 15,
+              damage: 25,
+              accuracy: 85,
+            },
+            {
+              name: "Zawijas w pelerynie kończący się kolanem na twarzy",
+              type: "Physical",
+              speed: 110,
+              cost: 0,
+              damage: 30,
+              accuracy: 70,
+            },
+            {
+              name: "Rzut nietoperzorangiem",
+              type: "Physical",
+              speed: 95,
+              cost: 0,
+              damage: 35,
+              accuracy: 80,
+            },
+          ],
+          [
+            //świnoczłek
+            {
+              name: "Uderzenie złotym mieczem",
+              type: "Physical",
+              speed: 70,
+              cost: 0,
+              damage: 25,
+              accuracy: 80,
+            },
+          ],
+          [
+            //szkielet na pająku
+            {
+              name: "Sztrzał z łuku",
+              type: "Physical",
+              speed: 100,
+              cost: 0,
+              damage: 45,
+              accuracy: 60,
+            },
+            {
+              name: "Pajęcza szarża",
+              type: "Physical",
+              speed: 110,
+              cost: 0,
+              damage: 30,
+              accuracy: 80,
+            },
+            {
+              name: "Strzał siecią",
+              type: "Magical",
+              speed: 95,
+              cost: 20,
+              damage: 45,
+              accuracy: 70,
+            },
+          ],
+          [
+            //Ślimak z karabinem
+            {
+              name: "Strzał zabawkowym karabinem",
+              type: "Physical",
+              speed: 100,
+              cost: 0,
+              damage: 55,
+              accuracy: 60,
+            },
+            {
+              name: "Obślizgły śluz",
+              type: "Magical",
+              speed: 70,
+              cost: 8,
+              damage: 50,
+              accuracy: 80,
+            },
+          ],
+        ],
+        [
+          //tier4 boss
+          [
+            //boss
+            {
+              name: "Plunięcie ogniem",
+              type: "Physical",
+              speed: 75,
+              cost: 0,
+              damage: 45,
+              accuracy: 75,
+            },
+            {
+              name: "Uderzenie ogonem",
+              type: "Physical",
+              speed: 150,
+              cost: 0,
+              damage: 50,
+              accuracy: 50,
+            },
+            {
+              name: "Spenetrowanie żołądku",
+              type: "Physical",
+              speed: 160,
+              cost: 0,
+              damage: 40,
+              accuracy: 50,
+            },
+            {
+              name: "Spanko",
+              type: "Magical",
+              speed: 30,
+              cost: 50,
+              damage: 0,
               accuracy: 200,
               special: "heal",
               specialValue: 200,
@@ -1700,16 +2643,22 @@
       function fightStart() {
         fightStage.classList.remove("hidden");
         refreshFightSkills();
+        // enemyTier = 1; //do testowania
+        // enemyIndex = 2; //
         enemy = enemies[enemyTier][enemyIndex];
+
         enemyOldImage = document.getElementsByClassName("enemyImage");
         if (enemyOldImage.length == 1) {
           enemyDiv.removeChild(enemyOldImage[0]);
         }
         if (enemy.image != undefined) {
           enemyDiv.classList.remove("enemyNoImage");
-          const enemyImage = document.createElement("img");
+          const enemyImage = document.createElement("div");
           enemyImage.classList.add("enemyImage");
-          enemyImage.src = "enemies/" + `${enemy.image}`;
+          enemyImage.style.backgroundImage = "url('enemies/" + `${enemy.image}`;
+          enemyImage.style.width = enemy.size + "%";
+          enemyImage.style.height = enemy.size + "%";
+          enemyImage.style.transform = `translate(${enemy.translateX}%, ${enemy.translateY}%)`;
           enemyDiv.appendChild(enemyImage);
         } else {
           enemyDiv.classList.add("enemyNoImage");
@@ -1805,7 +2754,25 @@
             enemyAbilities[enemyTier][enemyIndex][enemySpecialAttackIndex];
 
           enemy.mana -= enemyChosenAttack.cost;
+          updateHpMpBars();
+          fightMessageDiv.innerHTML = `${enemy.name} będzie używał specjalnej zdolności <br> "${enemyChosenAttack.name}"`;
+          setTimeout(() => {
+            fightMessageDiv.innerText = "";
+            enemyAttackPhase();
+          }, 3000);
+        } else if (
+          enemySpecialAttackIndex != undefined &&
+          enemyAbilities[enemyTier][enemyIndex][enemySpecialAttackIndex].cost <=
+            enemy.mana &&
+          enemy.name == "Hydra" &&
+          enemy.health <= 200
+        ) {
+          enemySpecialAttack = true;
+          enemyChosenAttack =
+            enemyAbilities[enemyTier][enemyIndex][enemySpecialAttackIndex];
 
+          enemy.mana -= enemyChosenAttack.cost;
+          updateHpMpBars();
           fightMessageDiv.innerHTML = `${enemy.name} będzie używał specjalnej zdolności <br> "${enemyChosenAttack.name}"`;
           setTimeout(() => {
             fightMessageDiv.innerText = "";
@@ -1813,7 +2780,7 @@
           }, 3000);
         } else {
           enemySpecialAttack = false;
-          skillIndex = Math.floor(Math.random() * enemyCountRegularAttacks); //zmienić!!!!!!!!!!!!!!!!!
+          skillIndex = Math.floor(Math.random() * enemyCountRegularAttacks);
           enemyChosenAttack = enemyAbilities[enemyTier][enemyIndex][skillIndex];
           while (enemy.mana < enemyChosenAttack.cost) {
             skillIndex = Math.floor(
@@ -1888,6 +2855,14 @@
             if (enemy.health > enemy.maxhealth) {
               enemy.health = enemy.maxhealth;
             }
+
+            updateHpMpBars();
+            fightMessageDiv.innerText = `${enemy.name} leczy się za ${enemyChosenAttack.specialValue} życia`;
+          } else if (enemy.name == "Hydra") {
+            enemy.health += enemyChosenAttack.specialValue;
+            if (enemy.health > enemy.maxhealth) {
+              enemy.health = enemy.maxhealth;
+            }
             updateHpMpBars();
             fightMessageDiv.innerText = `${enemy.name} leczy się za ${enemyChosenAttack.specialValue} życia`;
           }
@@ -1923,7 +2898,16 @@
               clearInterval(enemyAttackPhaseGoingInterval);
               clearInterval(playerAttackPhaseGoingInterval);
             }, 3000);
+            setTimeout(() => {
+              endScreen.classList.remove("hidden");
+              endScreen.style.animation = "endTextsGo 35s linear forwards";
+              endHead.innerHTML = "Przegrałeś";
+              endInfo[0].innerHTML =
+                "...lub przegrałaś, <br />jeśli nie przepadasz za testosteronem. 🚺";
+              endInfo[1].innerHTML = "Możesz kliknąć F5 czy coś :)";
+            }, 5000);
           }
+
           updateHpMpBars();
         }
 
@@ -1941,26 +2925,37 @@
       function playerAttack() {
         timelineStop = 1;
 
-        playerAccuracy = (player.accuracy + playerChosenAttack.accuracy) / 2;
-        if (Math.random() * 100 > playerAccuracy) {
-          fightMessageDiv.innerHTML = `${player.name} nie trafia, nawet najlepszym się zdarza <br> a co dopiero tobie`;
-        } else if (
+        if (
           playerChosenAttack.type == "Physical" &&
           Math.random() * 100 < enemy.dodge
         ) {
           fightMessageDiv.innerText = `${enemy.name} unika, aha fajnie`;
         } else {
-          if (playerChosenAttack.type == "Physical") {
-            playerDamage = playerChosenAttack.damage + player.power;
+          playerAccuracy = (player.accuracy + playerChosenAttack.accuracy) / 2;
+          if (Math.random() * 100 > playerAccuracy) {
+            if (playerChosenAttack.type == "Physical") {
+              playerDamage = Math.floor(
+                (playerChosenAttack.damage + player.power) * 0.2
+              );
+            } else {
+              playerDamage = Math.floor(
+                (playerChosenAttack.damage + player.magicPower) * 0.2
+              );
+            }
+            fightMessageDiv.innerHTML = `${player.name} się zaplątał i zadał tylko ${playerDamage} obrażeń,<br> nawet najlepszym się zdarza a co dopiero tobie`;
           } else {
-            playerDamage = playerChosenAttack.damage + player.magicPower;
-          }
+            if (playerChosenAttack.type == "Physical") {
+              playerDamage = playerChosenAttack.damage + player.power;
+            } else {
+              playerDamage = playerChosenAttack.damage + player.magicPower;
+            }
 
-          if (Math.random() * 100 < player.luck) {
-            playerDamage = Math.floor(playerDamage * 1.5);
-            fightMessageDiv.innerText = `${player.name} trafia krytycznie zadając ${playerDamage} obrażeń, najs`;
-          } else {
-            fightMessageDiv.innerText = `${player.name} zadaje ${playerDamage} obrażeń`;
+            if (Math.random() * 100 < player.luck) {
+              playerDamage = Math.floor(playerDamage * 1.5);
+              fightMessageDiv.innerText = `${player.name} trafia krytycznie zadając ${playerDamage} obrażeń, najs`;
+            } else {
+              fightMessageDiv.innerText = `${player.name} zadaje ${playerDamage} obrażeń`;
+            }
           }
           enemy.health -= playerDamage;
           if (enemy.health <= 0) {
@@ -1984,26 +2979,18 @@
               clearInterval(playerAttackPhaseGoingInterval);
             }, 3000);
             setTimeout(() => {
-              enemy.health = enemy.maxhealth;
-              enemy.mana = enemy.maxmana;
-              enemyChoosenAttack = null;
-              // player.health += Math.floor(player.maxhealth * 0.1);
-              // if (player.health > player.maxhealth) {
-              //   player.health = player.maxhealth;
-              // }
-              player.mana += Math.floor(player.maxmana * 0.5);
-              if (player.mana > player.maxmana) {
-                player.mana = player.maxmana;
+              if (mapMoveN == 14) {
+                endScreen.classList.remove("hidden");
+                endScreen.style.animation = "endTextsGo 35s linear forwards";
+              } else {
+                chooseAttribute();
               }
-              fightMessageDiv.innerText = ``;
-              mapTable.classList.remove("hidden");
-              fightStage.classList.add("hidden");
             }, 5000);
           }
           updateHpMpBars();
         }
 
-        if (enemy.health != 0) {
+        if (enemy.health > 0) {
           playerTimelineLocation = -6;
           timelineActionDivs[1].classList.remove("transition");
           timelineActionDivs[1].style.transform = `translateX(${playerTimelineLocation}vw`;
@@ -2024,6 +3011,94 @@
         enemyHpDiv.style.width = (enemy.health / enemy.maxhealth) * 100 + "%";
 
         enemyMpDiv.style.width = (enemy.mana / enemy.maxmana) * 100 + "%";
+        if (mouseOverPlayerMp == 1) {
+          containers[0].innerText = `${player.mana}/${player.maxmana}`;
+        } else if (mouseOverPlayerHp == 1) {
+          containers[1].innerText = `${player.health}/${player.maxhealth}`;
+        } else if (mouseOverEnemyHp == 1) {
+          containers[2].innerText = `${enemy.health}/${enemy.maxhealth}`;
+        } else if (mouseOverEnemyMp == 1) {
+          containers[3].innerText = `${enemy.mana}/${enemy.maxmana}`;
+        }
+      }
+
+      const chooseAttributeContainerDiv = document.getElementById(
+        "chooseAttributeContainer"
+      );
+      const chooseAttributeDiv = document.getElementsByClassName(
+        "chooseAttributeAction"
+      );
+      let attributesIndex;
+      let attributesToChoose;
+
+      function chooseAttribute() {
+        attributesIndex = [0, 1, 2, 3, 4, 5, 6, 7];
+        attributesToChoose = [];
+        for (let i = 0; i < chooseAttributeDiv.length; i++) {
+          randomAttributeValue = Math.floor(
+            Math.random() * attributesIndex.length
+          );
+          randomAttributeIndex = attributesIndex[randomAttributeValue];
+          if (randomAttributeIndex == 0) {
+            chooseAttributeDiv[i].innerText = "Maksymalne zdrowie";
+          } else if (randomAttributeIndex == 1) {
+            chooseAttributeDiv[i].innerText = "Siła";
+          } else if (randomAttributeIndex == 2) {
+            chooseAttributeDiv[i].innerText = "Maksymalna mana";
+          } else if (randomAttributeIndex == 3) {
+            chooseAttributeDiv[i].innerText = "Moc magiczna";
+          } else if (randomAttributeIndex == 4) {
+            chooseAttributeDiv[i].innerText = "Szybkość";
+          } else if (randomAttributeIndex == 5) {
+            chooseAttributeDiv[i].innerText = "Szansa na unik";
+          } else if (randomAttributeIndex == 6) {
+            chooseAttributeDiv[i].innerText = "Celność";
+          } else {
+            chooseAttributeDiv[i].innerText = "Szczęście";
+          }
+          attributesToChoose.push(randomAttributeIndex);
+          attributesIndex.splice(randomAttributeValue, 1);
+
+          chooseAttributeDiv[i].onclick = () => {
+            if (chooseAttributeDiv[i].innerText == "Maksymalne zdrowie") {
+              attributeMaxHealth += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Siła") {
+              attributePower += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Maksymalna mana") {
+              attributeMaxMana += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Moc magiczna") {
+              attributeMagicPower += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Szybkość") {
+              attributeSpeed += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Szansa na unik") {
+              attributeDodge += 2;
+            } else if (chooseAttributeDiv[i].innerText == "Celność") {
+              attributeAccuracy += 2;
+            } else {
+              attributeLuck += 2;
+            }
+            calculatePlayerStats();
+            updateHpMpBars();
+            chooseAttributeContainerDiv.classList.add("hidden");
+            mapTable.classList.remove("hidden");
+            fightStage.classList.add("hidden");
+            enemy.health = enemy.maxhealth;
+            enemy.mana = enemy.maxmana;
+            enemyChoosenAttack = null;
+            // player.health += Math.floor(player.maxhealth * 0.1);
+            // if (player.health > player.maxhealth) {
+            //   player.health = player.maxhealth;
+            // }
+            // player.mana += Math.floor(player.maxmana * 0.5);
+            // if (player.mana > player.maxmana) {
+            //   player.mana = player.maxmana;
+            // }
+            player.mana = player.maxmana;
+
+            fightMessageDiv.innerText = "";
+          };
+        }
+        chooseAttributeContainerDiv.classList.remove("hidden");
       }
 
       //tworzenie mapy
@@ -2040,7 +3115,7 @@
         }
       }
       const mapFields = document.getElementsByClassName("mapField");
-
+      //dodać (+rysować png)
       const maps = [
         [
           "0.png",
@@ -2115,38 +3190,138 @@
           ],
         ],
       ];
-      let mapIndex = Math.floor(Math.random() * maps.length);
-      let currentMap = maps[mapIndex];
-      const mapFieldsToUse = currentMap[1];
 
-      for (let i = 0; i < mapFieldsToUse.length; i++) {
-        mapFields[mapFieldsToUse[i]].classList.add("mapFieldAway");
+      let mapsToUse = [];
+      for (let i = 0; i < maps[1].length; i++) {
+        mapsToUse.push(i);
       }
-      //dodawanie do mapy dróg
-      const mapRoadsImg = document.createElement("img");
-      mapRoadsImg.src = "maps/" + maps[mapIndex][0];
-      mapRoadsImg.classList.add("mapRoadsImg");
-      mapMap.appendChild(mapRoadsImg);
 
-      //pierwszy krok na mapie
-      mapFields[45].classList.add("mapFieldAvailable");
-      mapFields[45].classList.remove("mapFieldAway");
-      mapFields[45].classList.add("mapBattle");
-      mapFields[3].classList.add("mapBattle");
-      //losowanie pozostałych wydarzeń Bitwa=B, Skarb=S, Gospoda=G, Uniwersytet=U, Fitness Klub=F
-      let shopsN = 3;
+      let shopsN;
+      let mapIndex;
+      let currentMap;
+      let mapFieldsToUse;
+      let enemyTier = 0;
+      let mapMoveN = 0;
+      let enemiesToFight;
+      let enemyToFightIndex;
+      let mapFieldNowIndex;
+      let mapFieldBeforeIndex;
 
-      let mapFieldsAvailableIndex = mapFieldsToUse;
+      function newMap() {
+        //usuwanie poprzedniej mapy
+        player.health = player.maxhealth;
+        try {
+          updateHpMpBars();
+        } catch {}
+        const exMapRoad = document.getElementsByClassName("mapRoadsImg");
+        if (exMapRoad.length != 0) {
+          exMapRoad[0].remove();
+        }
 
-      let shopIndex;
-      let shopIndexConnected;
-      let mapFieldsAvailableRandomIndex;
-      //dodawanie sklepów
-      for (let i = 0; i < shopsN; i++) {
-        //sprawdzanie czy sklepy są połącozne
-        shopIndexConnected = true;
-        while (shopIndexConnected == true) {
-          shopIndexConnected = false;
+        for (let i = 0; i < mapFields.length; i++) {
+          mapFields[i].classList.remove("mapFieldAway");
+          mapFields[i].classList.remove("mapFieldAvailable");
+          mapFields[i].classList.remove("mapFieldNow");
+          mapFields[i].classList.remove("mapFieldPast");
+          mapFields[i].classList.remove("mapBattle");
+          mapFields[i].classList.remove("mapShop");
+          mapFields[i].classList.remove("mapGym");
+          mapFields[i].innerText = "";
+        }
+        mapIndexToUse = Math.floor(Math.random() * mapsToUse.length);
+        mapIndex = mapsToUse[mapIndexToUse];
+        currentMap = maps[mapIndex];
+        mapFieldsToUse = currentMap[1];
+        mapsToUse.splice(mapIndexToUse, 1);
+
+        for (let i = 0; i < mapFieldsToUse.length; i++) {
+          mapFields[mapFieldsToUse[i]].classList.add("mapFieldAway");
+        }
+        //dodawanie do mapy dróg
+        const mapRoadsImg = document.createElement("img");
+        mapRoadsImg.src = "maps/" + maps[mapIndex][0];
+        mapRoadsImg.classList.add("mapRoadsImg");
+        mapMap.appendChild(mapRoadsImg);
+
+        //pierwszy krok na mapie
+        mapFields[45].classList.add("mapFieldAvailable");
+        mapFields[45].classList.remove("mapFieldAway");
+        mapFields[45].classList.add("mapBattle");
+        mapFields[3].classList.add("mapBattle");
+
+        //losowanie pozostałych wydarzeń
+        shopsN = 2;
+        let mapFieldsAvailableIndex = mapFieldsToUse;
+
+        let shopIndex;
+        let shopIndexConnected;
+        let mapFieldsAvailableRandomIndex;
+        let mapFieldsConnectedToBoss = [];
+        for (let i = 0; i < currentMap[2].length; i++) {
+          if (currentMap[2][i][0] == 3) {
+            mapFieldsConnectedToBoss.push(currentMap[2][i][1]);
+          }
+        }
+        //dodawanie sklepu połączonego z bosem
+        let mapFieldShopConnectedToBoss =
+          mapFieldsConnectedToBoss[
+            Math.floor(Math.random() * mapFieldsConnectedToBoss.length)
+          ];
+        mapFields[mapFieldShopConnectedToBoss].innerText = "S";
+        mapFields[mapFieldShopConnectedToBoss].classList.add("mapShop");
+        shopsN -= 1;
+        let indexOfBossShopInAvailable = mapFieldsAvailableIndex.indexOf(
+          mapFieldShopConnectedToBoss
+        );
+        mapFieldsAvailableIndex.splice(indexOfBossShopInAvailable, 1);
+
+        //dodawanie pozostałych sklepów
+        for (let i = 0; i < shopsN; i++) {
+          //sprawdzanie czy sklepy są połącozne
+          shopIndexConnected = true;
+          while (shopIndexConnected == true) {
+            shopIndexConnected = false;
+
+            mapFieldsAvailableRandomIndex = Math.floor(
+              Math.random() * (mapFieldsAvailableIndex.length - 3) + 1
+            );
+
+            for (let j = 0; j < currentMap[2].length; j++) {
+              if (
+                currentMap[2][j][1] ==
+                mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex]
+              ) {
+                if (
+                  mapFields[currentMap[2][j][0]].classList.contains("mapShop")
+                ) {
+                  shopIndexConnected = true;
+                  break;
+                }
+              }
+
+              if (
+                currentMap[2][j][0] ==
+                mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex]
+              ) {
+                if (
+                  mapFields[currentMap[2][j][1]].classList.contains("mapShop")
+                ) {
+                  shopIndexConnected = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          shopIndex = mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex];
+          mapFields[shopIndex].classList.add("mapShop");
+          mapFields[shopIndex].innerText = "S";
+          mapFieldsAvailableIndex.splice(mapFieldsAvailableRandomIndex, 1);
+        }
+        //dodawanie gym
+        gymIndexConnected = true;
+        while (gymIndexConnected == true) {
+          gymIndexConnected = false;
 
           mapFieldsAvailableRandomIndex = Math.floor(
             Math.random() * (mapFieldsAvailableIndex.length - 3) + 1
@@ -2160,7 +3335,7 @@
               if (
                 mapFields[currentMap[2][j][0]].classList.contains("mapShop")
               ) {
-                shopIndexConnected = true;
+                gymIndexConnected = true;
                 break;
               }
             }
@@ -2172,48 +3347,41 @@
               if (
                 mapFields[currentMap[2][j][1]].classList.contains("mapShop")
               ) {
-                shopIndexConnected = true;
+                gymIndexConnected = true;
                 break;
               }
             }
           }
         }
-
-        shopIndex = mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex];
-        mapFields[shopIndex].classList.add("mapShop");
-        mapFields[shopIndex].innerText = "S";
+        gymIndex = mapFieldsAvailableIndex[mapFieldsAvailableRandomIndex];
+        mapFields[gymIndex].classList.add("mapGym");
+        mapFields[gymIndex].innerText = "G";
         mapFieldsAvailableIndex.splice(mapFieldsAvailableRandomIndex, 1);
-      }
 
-      for (let i = 0; i < mapFieldsToUse.length; i++) {
-        mapFieldCheckingDiv = mapFields[mapFieldsToUse[i]];
-        if (!mapFieldCheckingDiv.classList.contains("mapShop")) {
-          mapFieldCheckingDiv.classList.add("mapBattle");
+        for (let i = 0; i < mapFieldsToUse.length; i++) {
+          mapFieldCheckingDiv = mapFields[mapFieldsToUse[i]];
+          if (
+            !mapFieldCheckingDiv.classList.contains("mapShop") &&
+            !mapFieldCheckingDiv.classList.contains("mapGym")
+          ) {
+            mapFieldCheckingDiv.classList.add("mapBattle");
+          }
         }
 
-        if (mapFieldCheckingDiv.classList.contains("mapBattle")) {
-          const icon = document.createElement("img");
-          icon.classList.add("mapBattleIcon");
-          icon.src = "icons/bitwa.png";
-          mapFieldCheckingDiv.appendChild(icon);
+        mapFieldNowIndex = null;
+        mapFieldBeforeIndex = null;
+
+        enemiesToFight = [];
+        for (let j = 0; j < enemies[enemyTier].length; j++) {
+          enemiesToFight.push(j);
         }
+        mapUpdate();
       }
-
-      //dostępne trasy
-      let mapFieldNowIndex = null;
-      let mapFieldBeforeIndex = null;
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      let enemyTier = 0;
-      let mapFightN = 0;
-      let enemiesToFight;
-      let enemyToFightIndex;
-
-      enemiesToFight = [];
-      for (let j = 0; j < enemies[enemyTier].length; j++) {
-        enemiesToFight.push(j);
-      }
+      newMap();
 
       function mapUpdate() {
+        //czy nowa mapa
+
         const mapFieldsAvailableNow = document.getElementsByClassName(
           "mapFieldAvailable"
         );
@@ -2229,26 +3397,33 @@
             }
             mapTable.classList.add("hidden");
 
-            //zdarzenie np. walka
-
             // wybór przeciwnika
 
-            //tymczasowo
-            if (mapFightN == 3) {
+            if (mapMoveN == 3) {
               enemyTier = 1;
               enemiesToFight = [];
               for (let j = 0; j < enemies[enemyTier].length; j++) {
                 enemiesToFight.push(j);
               }
-            }
-            if (mapFightN == 6) {
+            } else if (mapMoveN == 6) {
               enemyTier = 2;
               enemiesToFight = [];
               for (let j = 0; j < enemies[enemyTier].length; j++) {
                 enemiesToFight.push(j);
               }
+            } else if (mapMoveN == 7) {
+              enemyTier = 3;
+              enemiesToFight = [];
+              for (let j = 0; j < enemies[enemyTier].length; j++) {
+                enemiesToFight.push(j);
+              }
+            } else if (mapMoveN == 13) {
+              enemyTier = 4;
+              enemiesToFight = [];
+              for (let j = 0; j < enemies[enemyTier].length; j++) {
+                enemiesToFight.push(j);
+              }
             }
-            //
 
             enemyToFightIndex = Math.floor(
               Math.random() * enemiesToFight.length
@@ -2257,13 +3432,14 @@
 
             enemiesToFight.splice(enemyToFightIndex, 1);
 
-            //tymczasowo
-            mapFightN += 1;
-            //
+            mapMoveN += 1;
+
             if (mapField.classList.contains("mapBattle")) {
               fightStart();
             } else if (mapField.classList.contains("mapShop")) {
               enterShop();
+            } else if (mapField.classList.contains("mapGym")) {
+              enterGym();
             }
 
             mapField.classList.add("mapFieldNow");
@@ -2294,50 +3470,53 @@
             }
             mapFields[mapFieldNowIndex].classList.remove("mapFieldAvailable");
 
+            if (mapMoveN != 0 && mapMoveN % 7 == 0) {
+              newMap();
+            }
             mapUpdate();
           };
         }
       }
-      mapUpdate();
 
       //sklep
       const shopPotions = [
         {
           name: "Miksturka życia",
-          price: 10,
+          price: 5,
           description: "Leczy serce i duszę",
           type: "static",
           value: 30,
         },
         {
           name: "Woda życia",
-          price: 15,
+          price: 9,
           description: "Leczy serce, duszę i nie tylko",
           type: "static",
           value: 50,
         },
         {
           name: "Procentowa miksturka życia",
-          price: 25,
+          price: 12,
           description: "Leczy serce i duszę...procentowo",
           type: "percentage",
           value: 20,
         },
         {
           name: "Procentowa woda życia",
-          price: 40,
+          price: 25,
           description: "Leczy serce, duszę i nie tylko...procentowo",
           type: "percentage",
           value: 50,
         },
         {
           name: "Jezioro życia",
-          price: 60,
+          price: 45,
           description: "Leczy wszystkie troski świata tego",
           type: "percentage",
           value: 100,
         },
       ];
+
       const shopSkills = [
         {
           name: "Patyk",
@@ -2377,9 +3556,9 @@
           skillIndex: 9,
         },
         {
-          name: "Sztuczne ognie",
+          name: "Zimne ognie",
           price: 15,
-          description: "Niby sztuczne, ale poparzyć się da",
+          description: "Niby zimne, ale poparzyć się da",
           skillIndex: 10,
         },
       ];
@@ -2584,7 +3763,8 @@
             if (shopStop == 0) {
               if (i < 2 && money >= shopPotions[shopPotionsIndex[i]].price) {
                 shopPotionChossen = shopPotions[shopPotionsIndex[i]];
-                money = money - shopPotionChossen.price;
+                money -= shopPotionChossen.price;
+
                 if (shopPotionChossen.type == "static") {
                   player.health += shopPotionChossen.value;
                 } else {
@@ -2617,6 +3797,7 @@
 
           shopSkillsObtainedDivs[i].onclick = () => {
             //liczenie czy będziesz miał 1 zdolność fizyczną
+            //ZROBIĆ!!!!!!!!!
             player.abilitiesObtained[i] =
               playerAbilities[shopChossenSkillIndex].index;
 
@@ -2628,7 +3809,7 @@
               shopItemStatsDivs[i].classList.add("hidden");
             }
 
-            money = money - shopChossenSkillPrice;
+            money -= shopChossenSkillPrice;
             shopRefresh();
           };
         }
@@ -2693,10 +3874,250 @@
           }
         }
       }
-      //pomiędzy walkami chodzisz po mapie która ma parę ścieżek z różnymi zdarzeniami (walka z przeciwnikiem, walka z bossem, skarb, sklep(kupno przedmiotów dających nowe zdolności oraz wyzwania), siłownie, biblioteki), ogólny podgląd
-      //za walkę dostaje się kasę, kasę wydaje się w siłowniach(siła,uniki,wytrzymałość,celność) bibliotekach(wiedza,moc umiejętności) sklepach(umiejętności,przedmioty) etc
-      //hp możesz leczyć wszędzie ale w różnych miejscach inna cena
+
+      //gym
+      const gymTop = document.getElementById("gymTop");
+      const gymPlayerName = document.getElementById("gymPlayerName");
+      const gymPlayerStatValueDiv = document.getElementsByClassName(
+        "gymPlayerStatValue"
+      );
+      const gymItemNameDivs = document.getElementsByClassName("gymItemName");
+      const gymItemPriceDivs = document.getElementsByClassName("gymItemPrice");
+      const gymItemDescriptonDivs = document.getElementsByClassName(
+        "gymItemDescripton"
+      );
+      const gymItemsDivs = document.getElementsByClassName("gymItem");
+      const gymLeaveDiv = document.getElementById("gymLeave");
+      const gymBackgroundDiv = document.getElementById("gymBackground");
+      //dodać
+      const gymPhysicalExc = [
+        "Pompki",
+        "Brzuszki",
+        "Bicie niemca po kasku",
+        "Wyładowanie frustracji na niewinnej poduszce",
+        "Lekcja Kutarate",
+      ];
+      //dodać
+      const gymMagicalExc = [
+        "Nauka czytania",
+        "Nauka pisania",
+        "Programowanie gry komputerowej",
+        "Potęgowanie",
+        "Dzielenie przez zer0",
+      ];
+      const gymAtributes = [
+        "Siła",
+        "Szybkość",
+        "Moc magiczna",
+        "Maksymalna mana",
+        "Maksymalne życie",
+        "Szansa na unik",
+        "Celność",
+        "Szczęście",
+      ];
+
+      function gymPlayerStatsUpdate() {
+        gymPlayerStatValueDiv[0].innerText = money;
+        gymPlayerStatValueDiv[1].innerText = `${player.health}/${player.maxhealth}`;
+        gymPlayerStatValueDiv[2].innerText = `${player.mana}/${player.maxmana}`;
+        gymPlayerStatValueDiv[3].innerText = player.power;
+        gymPlayerStatValueDiv[4].innerText = player.magicPower;
+        gymPlayerStatValueDiv[5].innerText = player.speed;
+        gymPlayerStatValueDiv[6].innerText = player.dodge;
+        gymPlayerStatValueDiv[7].innerText = player.accuracy;
+        gymPlayerStatValueDiv[8].innerText = player.luck;
+      }
+
+      function enterGym() {
+        gymPlayerStatsUpdate();
+        gymBackgroundDiv.classList.remove("hidden");
+
+        let gymName = names[Math.floor(Math.random() * names.length)];
+
+        gymTop.innerText = `Coś czego nie wiem jak nazwać u ${gymName}a`;
+
+        gymPlayerName.innerText = player.name;
+        let spankoHealValue = 50;
+        gymItemNameDivs[0].innerText = "Spanko";
+        gymItemPriceDivs[0].innerText = spankoHealValue;
+        gymItemDescriptonDivs[0].innerText = `Leczy ${spankoHealValue} zdrowia`;
+
+        let gymBuyPrices = [50];
+        let gymBuyPluses = [50];
+
+        let gymBuyAtributes = [[], [], [], [], []];
+        let gymAtributeRandomA;
+        let gymAtributeRandomB;
+
+        for (let i = 1; i < gymItemNameDivs.length; i++) {
+          gymPriceRandom = Math.ceil(Math.random() * 15 + 5);
+          gymBuyPrices[i] = gymPriceRandom;
+          if (gymPriceRandom < 11) {
+            gymBuyPluses[i] = 2;
+          } else if (gymPriceRandom < 18) {
+            gymBuyPluses[i] = 4;
+          } else {
+            gymBuyPluses[i] = 6;
+          }
+        }
+
+        let gymPhysicalExcRandom = Math.floor(
+          Math.random() * gymPhysicalExc.length
+        );
+        gymItemNameDivs[1].innerText = gymPhysicalExc[gymPhysicalExcRandom];
+        gymItemPriceDivs[1].innerText = gymBuyPrices[1];
+        gymAtributeRandomA = gymAtributes[Math.floor(Math.random() * 2)];
+        gymAtributeRandomB = gymAtributes[Math.floor(Math.random() * 4 + 4)];
+        gymItemDescriptonDivs[1].innerHTML = `${gymAtributeRandomA} +${gymBuyPluses[1]} <br> ${gymAtributeRandomB} +${gymBuyPluses[1]}`;
+        gymBuyAtributes[1][0] = gymAtributeRandomA;
+        gymBuyAtributes[1][1] = gymAtributeRandomB;
+
+        let gymPhysicalExcRandomB = Math.floor(
+          Math.random() * gymPhysicalExc.length
+        );
+        while (gymPhysicalExcRandom == gymPhysicalExcRandomB) {
+          gymPhysicalExcRandomB = Math.floor(
+            Math.random() * gymPhysicalExc.length
+          );
+        }
+        gymItemNameDivs[3].innerText = gymPhysicalExc[gymPhysicalExcRandomB];
+        gymItemPriceDivs[3].innerText = gymBuyPrices[3];
+        gymAtributeRandomA = gymAtributes[Math.floor(Math.random() * 2)];
+        gymAtributeRandomB = gymAtributes[Math.floor(Math.random() * 4 + 4)];
+        gymItemDescriptonDivs[3].innerHTML = `${gymAtributeRandomA} +${gymBuyPluses[3]} <br> ${gymAtributeRandomB} +${gymBuyPluses[3]}`;
+        gymBuyAtributes[3][0] = gymAtributeRandomA;
+        gymBuyAtributes[3][1] = gymAtributeRandomB;
+
+        let gymMagicalExcRandom = Math.floor(
+          Math.random() * gymMagicalExc.length
+        );
+        gymItemNameDivs[2].innerText = gymMagicalExc[gymMagicalExcRandom];
+        gymItemPriceDivs[2].innerText = gymBuyPrices[2];
+        gymAtributeRandomA = gymAtributes[Math.floor(Math.random() * 2 + 2)];
+        gymAtributeRandomB = gymAtributes[Math.floor(Math.random() * 4 + 4)];
+        gymItemDescriptonDivs[2].innerHTML = `${gymAtributeRandomA} +${gymBuyPluses[2]} <br> ${gymAtributeRandomB} +${gymBuyPluses[2]}`;
+        gymBuyAtributes[2][0] = gymAtributeRandomA;
+        gymBuyAtributes[2][1] = gymAtributeRandomB;
+
+        let gymMagicalExcRandomB = Math.floor(
+          Math.random() * gymMagicalExc.length
+        );
+        while (gymMagicalExcRandom == gymMagicalExcRandomB) {
+          gymMagicalExcRandomB = Math.floor(
+            Math.random() * gymMagicalExc.length
+          );
+        }
+        gymItemNameDivs[4].innerText = gymMagicalExc[gymMagicalExcRandomB];
+        gymItemPriceDivs[4].innerText = gymBuyPrices[4];
+        gymAtributeRandomA = gymAtributes[Math.floor(Math.random() * 2 + 2)];
+        gymAtributeRandomB = gymAtributes[Math.floor(Math.random() * 4 + 4)];
+        gymItemDescriptonDivs[4].innerHTML = `${gymAtributeRandomA} +${gymBuyPluses[4]} <br> ${gymAtributeRandomB} +${gymBuyPluses[4]}`;
+        gymBuyAtributes[4][0] = gymAtributeRandomA;
+        gymBuyAtributes[4][1] = gymAtributeRandomB;
+
+        for (let i = 0; i < gymItemNameDivs.length; i++) {
+          gymItemsDivs[i].onmouseover = () => {
+            if (gymBuyPrices[i] <= money) {
+              gymItemsDivs[i].style.backgroundColor = "rgb(221, 97, 83)";
+              gymItemsDivs[i].style.cursor = "pointer";
+            } else {
+              gymItemsDivs[i].style.backgroundColor = "rgb(160, 25, 25)";
+              gymItemsDivs[i].style.cursor = "no-drop";
+            }
+          };
+
+          gymItemsDivs[i].onmouseout = () => {
+            gymItemsDivs[i].style.backgroundColor = "salmon";
+          };
+
+          gymItemsDivs[i].onclick = () => {
+            if (gymBuyPrices[i] > money) {
+            } else {
+              if (i == 0) {
+                player.health += player.maxhealth * (spankoHealValue / 100);
+                if (player.health > player.maxhealth) {
+                  player.health = player.maxhealth;
+                }
+              } else {
+                if (gymBuyAtributes[i][0] == "Szybkość") {
+                  attributeSpeed += gymBuyPluses[i];
+                } else if (gymBuyAtributes[i][0] == "Siła") {
+                  attributePower += gymBuyPluses[i];
+                } else if (gymBuyAtributes[i][0] == "Maksymalna mana") {
+                  attributeMaxMana += gymBuyPluses[i];
+                } else {
+                  attributeMagicPower += gymBuyPluses[i];
+                }
+                if (gymBuyAtributes[i][1] == "Szansa na unik") {
+                  attributeDodge += gymBuyPluses[i];
+                } else if (gymBuyAtributes[i][1] == "Maksymalne życie") {
+                  attributeMaxHealth += gymBuyPluses[i];
+                } else if (gymBuyAtributes[i][1] == "Celność") {
+                  attributeAccuracy += gymBuyPluses[i];
+                } else {
+                  attributeLuck += gymBuyPluses[i];
+                }
+                gymItemsDivs[i].style.cursor = "no-drop";
+              }
+              gymItemsDivs[i].onclick = () => {};
+              gymItemsDivs[i].onmouseover = () => {
+                gymItemsDivs[i].style.cursor = "no-drop";
+              };
+              gymItemsDivs[i].onmouseout = () => {};
+              gymItemsDivs[i].style.backgroundColor = "rgb(138, 94, 90)";
+
+              money -= gymBuyPrices[i];
+              calculatePlayerStats();
+              gymPlayerStatsUpdate();
+            }
+          };
+        }
+        gymLeaveDiv.onclick = () => {
+          mapTable.classList.remove("hidden");
+          gymBackgroundDiv.classList.add("hidden");
+
+          for (let i = 0; i < gymItemNameDivs.length; i++) {
+            gymItemsDivs[i].style.backgroundColor = "salmon";
+          }
+        };
+      }
+
+      const endScreen = document.getElementById("endScreen");
+      const endHehe = document.getElementById("endHehe");
+      const endHeheContainer = document.getElementById("endHeheContainer");
+      const endPeople = document.getElementsByClassName("endPerson");
+      const endHead = document.getElementById("endHead");
+      const endInfo = document.getElementsByClassName("endInfo");
+
+      for (let i = 0; i < endPeople.length; i++) {
+        endPeople[i].onmouseover = () => {
+          endPeople[i].style.cursor = "pointer";
+        };
+
+        endPeople[i].onclick = () => {
+          endPeople[i].innerText = "";
+          endPeople[i].style.cursor = "help";
+          endPeople[i].onmouseover = () => {
+            endPeople[i].style.cursor = "help";
+          };
+        };
+      }
+
+      endHeheN = 0;
+      endHehe.onmouseover = () => {
+        if (endHeheN == 0) {
+          endHeheContainer.style.justifyContent = "center";
+          endHeheN = 1;
+        } else if (endHeheN == 1) {
+          endHeheContainer.style.justifyContent = "flex-start";
+          endHeheN = 2;
+        } else {
+          endHeheContainer.style.justifyContent = "flex-end";
+          endHeheN = 0;
+        }
+      };
       //atrybuty przeciwników, gruby pies, chudy itp
+      //rozmiar przeciwników enemyImg width height
     </script>
   </body>
 </html>
