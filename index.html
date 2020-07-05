@@ -256,14 +256,14 @@
       #mapTable {
         width: 100vw;
         height: 100vh;
-        /* background-color: rgb(168, 121, 73); */
+        background-color: rgb(168, 121, 73);
         background-image: url("maps/background.png");
       }
       #mapMap {
         position: relative;
         width: 40%;
         height: 80%;
-        /* background-color: rgb(193, 154, 107); */
+        background-color: rgb(193, 154, 107);
         background-image: url("maps/paper.png ");
         left: 50%;
         top: 50%;
@@ -271,6 +271,12 @@
         border: black solid 2px;
         display: flex;
         flex-direction: column;
+      }
+      #mapRoad {
+        width: 100%;
+        height: 100%;
+        background-size: 100% 100%;
+        position: absolute;
       }
       .mapRow {
         flex: 1;
@@ -285,12 +291,7 @@
         font-size: 7vh;
         text-align: center;
       }
-      .mapRoadsImg {
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        position: absolute;
-      }
+
       .mapFieldAway {
         background-color: rgb(196, 0, 0);
         border: black solid 2px;
@@ -1168,7 +1169,7 @@
       </div>
     </div>
     <div id="mapTable" class="hidden">
-      <div id="mapMap"></div>
+      <div id="mapMap"><div id="mapRoad"></div></div>
     </div>
     <div id="shopBackground" class="hidden">
       <div id="shopTop"></div>
@@ -1933,6 +1934,10 @@
             accuracy: 90,
             luck: 10,
             speed: 125,
+            image: "pies.png",
+            size: 30,
+            translateX: 100,
+            translateY: 175,
           },
           {
             name: "Gołąb",
@@ -1989,6 +1994,10 @@
             accuracy: 70,
             luck: 7,
             speed: 125,
+            image: "mewa.png",
+            size: 30,
+            translateX: 130,
+            translateY: 20,
           },
         ],
         [
@@ -2069,9 +2078,9 @@
             luck: 5,
             speed: 80,
             image: "menel.png",
-            size: 40,
+            size: 50,
             translateX: 80,
-            translateY: 80,
+            translateY: 60,
           },
         ],
         [
@@ -2643,8 +2652,8 @@
       function fightStart() {
         fightStage.classList.remove("hidden");
         refreshFightSkills();
-        // enemyTier = 1; //do testowania
-        // enemyIndex = 2; //
+        // enemyTier = 0; //test
+        // enemyIndex = 4;
         enemy = enemies[enemyTier][enemyIndex];
 
         enemyOldImage = document.getElementsByClassName("enemyImage");
@@ -3103,6 +3112,7 @@
 
       //tworzenie mapy
       const mapMap = document.getElementById("mapMap");
+      const mapRoad = document.getElementById("mapRoad");
       const mapTable = document.getElementById("mapTable");
       for (let i = 0; i < 7; i++) {
         const mapRow = document.createElement("div");
@@ -3115,7 +3125,6 @@
         }
       }
       const mapFields = document.getElementsByClassName("mapField");
-      //dodać (+rysować png)
       const maps = [
         [
           "0.png",
@@ -3208,15 +3217,10 @@
       let mapFieldBeforeIndex;
 
       function newMap() {
-        //usuwanie poprzedniej mapy
         player.health = player.maxhealth;
         try {
           updateHpMpBars();
         } catch {}
-        const exMapRoad = document.getElementsByClassName("mapRoadsImg");
-        if (exMapRoad.length != 0) {
-          exMapRoad[0].remove();
-        }
 
         for (let i = 0; i < mapFields.length; i++) {
           mapFields[i].classList.remove("mapFieldAway");
@@ -3238,10 +3242,8 @@
           mapFields[mapFieldsToUse[i]].classList.add("mapFieldAway");
         }
         //dodawanie do mapy dróg
-        const mapRoadsImg = document.createElement("img");
-        mapRoadsImg.src = "maps/" + maps[mapIndex][0];
-        mapRoadsImg.classList.add("mapRoadsImg");
-        mapMap.appendChild(mapRoadsImg);
+
+        mapRoad.style.backgroundImage = `url(maps/${maps[mapIndex][0]})`;
 
         //pierwszy krok na mapie
         mapFields[45].classList.add("mapFieldAvailable");
@@ -4116,8 +4118,6 @@
           endHeheN = 0;
         }
       };
-      //atrybuty przeciwników, gruby pies, chudy itp
-      //rozmiar przeciwników enemyImg width height
     </script>
   </body>
 </html>
