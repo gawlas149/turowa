@@ -1,4 +1,4 @@
-turowa
+turowa (2020)
 
 Link to the game: https://turowa-filip149.vercel.app/
 (game is made in Polish)
